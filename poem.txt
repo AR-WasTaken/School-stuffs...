@@ -17,3 +17,5 @@ Since it takes time, to fix mistakes, we must work hard, to correct these past m
 (out of time :sadge:)
 
 Guess I'll write this afterword as a part of the 1.2 tutorial.
+
+This is the seccond branch of the first one.
