@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innafjord</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+
+    <script src="script.js"></script>
+</head>
+
+<body style="height: 100vh; overflow: hidden;">
+    <div style="overflow: hidden;">
+        <div class="container">
+            <div class="logo">
+                <img src="img/favicon.png" alt="logo" width="118%" style="padding-top: 0.3rem">
+            </div>
+            <div class="turbine-info">
+                <div class="turbine-info-area">
+                    <div class="turbine-info-grid-area-container">
+                        <div class="turbine-info-area-left">
+                            <div style="padding-top: 5%; padding-left: 10%;">
+                                <img style="transform-origin: 1; " class="spin" src="img/turbine-on-main.png" width="90%" alt="" style="padding-left: 10%; padding-top: 10%;">
+                            </div>
+                            <div style="padding-top: 10%; padding-left: 24%;">
+                                <h1 id="CHANGE_COLOR_IF_ON" style="color: chartreuse; font-weight: 600; font-size: 70px;">
+                                    ON
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="turbine-info-area-right" style="font-size: 25px;">
+                            <span id="turbine">
+                            <h2 class="turbine-info-area-right-items">
+                                turbine 1
+                            </h2>
+                            <div class="turbine-info-area-right-items">
+                                <input type="value" placeholder="turbine_speed">
+                            </div>
+                            <h4 class="turbine-info-area-right-items">
+                                --------------------------
+                            </h4>
+                            <div class="turbine-info-area-right-items">
+                                <span id="TURBINE_1_RPM">Turbine RPM: 30 000rpm/min</span>
+                        </div>
+                        <div class="turbine-info-area-right-items">
+                            <span id="TURBINE_1_VANNGJENNOMSTRØMNING">Water flowthrough rate: 10L/s</span>
+                        </div>
+                        <div class="turbine-info-area-right-items" style="padding-bottom: 3rem;">
+                            <span id="TURBINE_1_SLITASJE">Tubine Damage: 4%
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                        </span>
+                        </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #0077be;"></div>
+        <div style="position: fixed; bottom: 10px; left: 0; width: 60%;">
+            <div class="turbines-icon">
+                <div class="turbines-icon-flex">
+                    <img src="img/turbine-on.png" width="14%" id="turbine-icon-1" class="spin" alt="">
+                    <img src="img/turbine-on.png" width="14%" id="turbine-icon-2" class="spin" alt="">
+                    <img src="img/turbine-idle.png" width="14%" id="turbine-icon-3" alt="">
+                    <img src="img/turbine-idle.png" width="14%" id="turbine-icon-4" alt="">
+                    <img src="img/turbine-issue.png" width="14%" id="turbine-icon-5" alt="">
+                    <img src="img/turbine-on.png" width="14%" id="turbine-icon-6" class="spin" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="diagram-info">
+            <div class="diagram-info-area">
+                <div class="diagram-info-grid-area-container">
+                    <div>
+                        <!-- script -->
+                        <div class="diagram-info-area-01">
+                            <div id="powerprice-history"></div>
+                        </div>
+                        <div class="diagram-info-area-02">
+                            <div class="">
+                                <div id="powerprice"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- script -->
+                        <div class="diagram-info-area-03">
+                            <div id="Waterinflux-history"></div>
+                        </div>
+                        <div class="diagram-info-area-04">
+                            <div class="">
+                                <div id=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
