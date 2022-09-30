@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+
+        <!-- Her skriver man inn valuttaen man bruker senere, følg med på 'id="NOK"' -->
+        <input type="number" id="NOK">
+        <!-- Denne knappen kjører funksjonen NOKtilSEK -->
+        <button id="NOKtilUSD" onclick="NOKtilUSD()">NOK til SEK</button>
+        <!-- Her skrives resultatet, følg med på 'id="SEK"' -->
+        <span id="SEK"></span>
+
+        <script>
+            // Nav på funksjon, async brukes forran fordi det ikke er sikkert om man får 
+            // et svar fra APIen, dette gjør at man må bruke "await" forran de andre stedene.
+            // man refererer til andre funksjoner. 
+            async function NOKtilUSD() {
+                // Her enter vi IDen til <input> feltet. 
+                var norske_kroner = document.getElementById("NOK").value
+                    // Her henter vi ned norske kursen.
+                var kurs1 = await hentKurs1()
+                    // Ettersom jeg ikke hadde tilgang til en betalt versjon av api-greia måtte 
+                    // jeg først omgjøre den til amerikanske doller, og deretter om til svenske kroner.
+                var amerikanske_dollar = norske_kroner / kurs1
+
+                // Her henter jeg den svenske kursen. 
+                var kurs2 = await hentKurs2()
+                    // Her omgjør jeg de amerikanske dollarene til svenske kroner. Det som skjer er altså:
+                    // 1. Noen skrover noe inn i <input>.
+                    // 2. Noen trykker på knappen, dette gjør at man omgjør fra NOK til DOLLAR,
+                    // Altså hvis noen skriver inn 100 i feltet, får man ~ 10 dolla.
+                    // 3. De amerikanske dollarene blir omgjort til svenske kroner. 
+                    // Altså hvis man har ~10 dollar får man ~105 SEK.
+                var svenske_kroner = amerikanske_dollar * kurs2
+                    // 4. Man skriver inn anntall svenske lrover inn i <span> pga getElementById("SEK").
+                document.getElementById("SEK").innerHTML = svenske_kroner
+            }
+
+            // Her lager vi en funksjon som henter kursen fra Open Exchange Rates sin api.
+            async function hentKurs1() {
+                // Her hentes kursen
+                var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+                    // Her skrvier vi at vi forvernter at "forespørsel" skal være en json fil
+                var svar = await forespørsel.json()
+                    // Her viser vi at vi BARE har lyst på norske kroner.
+                var nok = svar.rates.NOK
+                    // Return stopper funksjonen. 
+                return nok
+            }
+
+            // Her lager vi en funksjon som henter kursen fra Open Exchange Rates sin api.
+            async function hentKurs2() {
+                // Her hentes kursen
+                var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+                    // Her skrvier vi at vi forvernter at "forespørsel" skal være en json fil
+                var svar = await forespørsel.json()
+                    // Her viser vi at vi BARE har lyst på norske kroner.
+                var sek = svar.rates.SEK
+                    // Return stopper funksjonen. 
+                return sek
+            }
+        </script>
+    </body>
+
+    </html>

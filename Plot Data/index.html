@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="2x+1"></div>
+    <div id="x^3"></div>
+
+    <div id="plotHer">
+
+    </div>
+    <script>
+        var xVerdier = []
+        var yVerdier = []
+
+        for (let i = -10; i <= 10; i = i + 1) {
+            xVerdier.push(i)
+            yVerdier.push(i * i * i)
+        }
+
+        data = [{
+            x: xVerdier
+            y: yVerdier
+            mode: "lines"
+        }]
+
+        oppsett = {
+            xaxis: {
+                range: [Mats.min(xVerdier), Math.max(xVerdier) + 1],
+                titel: "X verdier"
+            },
+            yaxis: {
+                range: [Mats.min(xVerdier), Math.max(xVerdier) + 1],
+                titel: "X verdier"
+            },
+
+            title: "2x+1",
+            plot_bgcolor: "#ccc",
+            paper_bgcolor: "#aaa",
+            colorway: ["#000"]
+
+        }
+    </script>
+
+</body>
+
+</html>

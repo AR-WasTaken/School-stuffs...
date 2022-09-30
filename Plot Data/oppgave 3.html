@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <div id="strompris">
+
+    </div>
+
+    <script>
+        async function hentStrømPriserHistorie() {
+            var request = await fetch("https://innafjord.azurewebsites.net/api/PowerPrice/all")
+            var answer = await request.json()
+            return answer
+        }
+
+        async function plotStrømpriser() {
+            var yVerdier = await hentStrømPriserHistorie()
+            xVerdier = []
+            for (i in yVerdier) {
+                xVerdier.push(i)
+            }
+
+            console.log(xVerdier)
+            console.log(yVerdier)
+        }
+    </script>
+</body>
+
+</html>

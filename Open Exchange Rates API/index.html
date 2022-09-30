@@ -1,0 +1,61 @@
+<html>
+
+<body>
+    <script>
+        //ignorer
+
+        //        function changeText() {
+        //            fetch("https://openexchangerates.org/api/latest.json?app_id=039443567f4045a59f68cc9a961ac74d")
+        //                .then(i => i.json())
+        //                .then(i =>
+        //                    document.getElementById("testButton").innerText = i.rates.NOK
+        //                )
+        //        }
+    </script>
+
+    <!-- titel -->
+    <h1>Open Exchange Rate API</h1>
+
+    <!-- lag et input felt for å skrive inn det vi vil omgjøre, den blir satt 
+        til number for å bare tilate nummer (+ vitenskaplige tegn) IDen skal brukes senere -->
+    <input type="number" id="USD">
+
+    <!-- Her lages en knapp, denne lages for å lage en input slik at vi lett 
+        kan sende en requet til openexchangerates -->
+    <button id="NOKtilUSD" onclick="NOKtilUSD()" textedit>button</button>
+
+    <span id="NOK"></span>
+
+</body>
+<script>
+    // Her lages en funksjon, "async" blir satt forran ettersom det er mulig at 
+    // det vi bruker funksjonen til ikke kommer fram. 
+    async function NOKtilUSD() {
+        // definerer vi "amerikanske_dollar" som det samme som inputfeltet (en amerikansk dollar er fortsatt
+        // bare vert en amerikansk doller, input fletet endrer bare mengden amerikanske dollar)
+        var amerikanske_dollar = document.getElementById("USD").value
+            // har lager vi en variabl denne kommer vi til å bruke senere for å referer til den faktsike valuttaen. 
+            // Altså den vi henter fra open exchange. 
+        var kurs = await hentKurs()
+            // Her definerer vi at norske korener er det samme som amerikanske dollar * kursen, dette er det samme 
+            // som å si at .. 20$ ~ 195 kr .. altså "20 * 9.9 ~ 195".
+        var norske_kroner = amerikanske_dollar * kurs
+            // Her finner vi "NOK" IDen i span elementet, og vi setter texten i span til å være det samme som norske kroner. 
+        document.getElementById("NOK").innerHTML = norske_kroner
+    }
+
+    // samme som over
+    async function hentKurs() {
+        // Her sender vi en forespørselt til open excheange, her får vi en json ↓↓↓↓ fil. Denne json filen inneholder 
+        // all informasjon vi trenger om alle tilgjengelige valluttaer, ikke bare nok, usd, gbp, jpy, osv. 
+        var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=039443567f4045a59f68cc9a961ac74d")
+            // Her får vi json filen 
+        var svar = await forespørsel.json()
+            // Her finner vi norske kroner, i forhold til dollar. Altså tallet "9.98[...]"
+        var nok = svar.rates.NOK
+
+        return nok
+    }
+</script>
+
+</html>
