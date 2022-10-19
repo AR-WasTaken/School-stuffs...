@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Weather</title>
+
+    <link rel="stylesheet" href="script_style/style.css">
+
+    <script src="script_style/script.js"></script>
+    <script src="script_style/script-icon.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="img/cloudy.gif">
+</head>
+
+<body onload="javascript: timeNow(); startTime(); checkTime(); weatherNow(); weatherToday(); weather_now_icon_loader();">
+    <div class="container">
+
+        <!-- location -->
+
+        <div class="location">
+            <div class="location-box">
+                <span class="location-title">Oslo</span>
+                <br>
+                <span id="date_today"></span> <span id="date_today_1"></span>
+            </div>
+        </div>
+
+        <!-- other pages -->
+
+        <div class="other-pages">
+            <a href="7 day forcast.html">
+                <button class="btn">
+                    7 day forcast
+                </button>
+            </a>
+            <a href="7 day temp forcast.html">
+                <button class="btn" style="margin-right: 25px;">
+                    7 day forcast temperature
+                </button>
+            </a>
+            <div class="btn" style="margin-right: 25px;">
+                <h1>
+                    Current weather
+                </h1>
+            </div>
+        </div>
+
+        <!-- weather now -->
+
+        <div class="weather-now">
+            <div class="weather-now-box">
+                <div class="weather-now-box-sections">
+
+                    <div class="weather-now-box-sections-icon-area">
+                        <div>
+                            <div id="weather" style="padding: 10%;"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="weather-now-box-sections-other">
+                        <img class="weather-now-box-sections-other-icon" src="img/hot.png" alt="">
+                        <span id="amount_of_temperature"></span> <span style="font-size: 45px; color: #c60000;">°</span> <span id="amount_of_temperature_apparent"></span> <span style="font-size: 25px; color: #c60000">°</span>
+                        <br>
+                        <img class="weather-now-box-sections-other-icon" id="amount-of-rain-corection" src="img/umbrella.png" alt="">
+                        <span id="amount_of_rain"></span> <span style="font-size: 20px; color: #006edb;">mm</span>
+                        <br>
+                        <img class="weather-now-box-sections-other-icon" src="img/wind.png" alt="">
+                        <span id="amount_of_wind"></span> <span id="amount_of_wind_gusts"></span>
+                    </div>
+                    <div class="weather-now-box-sections-sentence" style="margin-top: 2em;">
+                        <span id="weather_now_box_sections_sentence"></span>
+                    </div>
+                    <div class="wearher-now-box-sections-date">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- weather today -->
+
+        <div class="weather-today">
+            <div class="weather-today-box">
+                <div style="padding">
+                    <table class="weather-today-box-styles">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">
+                                    <span>Time</span>
+                                </th>
+
+                                <th>
+                                    <span>Temperature</span>
+                                </th>
+                                <th>
+                                    <span>Rain</span>
+                                </th>
+                                <th>
+                                    Wind km/h
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-right: 1px solid #000; text-align: left;">
+                                    00
+                                    <br> 01
+                                    <br> 02
+                                    <br> 03
+                                    <br> 04
+                                    <br> 05
+                                    <br> 06
+                                    <br> 07
+                                    <br> 08
+                                    <br> 09
+                                    <br> 10
+                                    <br> 11
+                                    <br> 12
+                                    <br> 13
+                                    <br> 14
+                                    <br> 15
+                                    <br> 16
+                                    <br> 17
+                                    <br> 18
+                                    <br> 19
+                                    <br> 20
+                                    <br> 21
+                                    <br> 22
+                                    <br> 23
+                                </td>
+                                <td style="border-right: 1px solid #bbb;">
+                                    <span id="weather_today_hour1_temperature"></span> <br>
+                                    <span id="weather_today_hour2_temperature"></span> <br>
+                                    <span id="weather_today_hour3_temperature"></span> <br>
+                                    <span id="weather_today_hour4_temperature"></span> <br>
+                                    <span id="weather_today_hour5_temperature"></span> <br>
+                                    <span id="weather_today_hour6_temperature"></span> <br>
+                                    <span id="weather_today_hour7_temperature"></span> <br>
+                                    <span id="weather_today_hour8_temperature"></span> <br>
+                                    <span id="weather_today_hour9_temperature"></span> <br>
+                                    <span id="weather_today_hour10_temperature"></span> <br>
+                                    <span id="weather_today_hour11_temperature"></span> <br>
+                                    <span id="weather_today_hour12_temperature"></span> <br>
+                                    <span id="weather_today_hour13_temperature"></span> <br>
+                                    <span id="weather_today_hour14_temperature"></span> <br>
+                                    <span id="weather_today_hour15_temperature"></span> <br>
+                                    <span id="weather_today_hour16_temperature"></span> <br>
+                                    <span id="weather_today_hour17_temperature"></span> <br>
+                                    <span id="weather_today_hour18_temperature"></span> <br>
+                                    <span id="weather_today_hour19_temperature"></span> <br>
+                                    <span id="weather_today_hour20_temperature"></span> <br>
+                                    <span id="weather_today_hour21_temperature"></span> <br>
+                                    <span id="weather_today_hour22_temperature"></span> <br>
+                                    <span id="weather_today_hour23_temperature"></span> <br>
+                                    <span id="weather_today_hour24_temperature"></span>
+
+                                </td>
+                                <td style="border-right: 1px solid #bbb;">
+                                    <span id="weather_today_hour1_rain"></span> <br>
+                                    <span id="weather_today_hour2_rain"></span> <br>
+                                    <span id="weather_today_hour3_rain"></span> <br>
+                                    <span id="weather_today_hour4_rain"></span> <br>
+                                    <span id="weather_today_hour5_rain"></span> <br>
+                                    <span id="weather_today_hour6_rain"></span> <br>
+                                    <span id="weather_today_hour7_rain"></span> <br>
+                                    <span id="weather_today_hour8_rain"></span> <br>
+                                    <span id="weather_today_hour9_rain"></span> <br>
+                                    <span id="weather_today_hour10_rain"></span> <br>
+                                    <span id="weather_today_hour11_rain"></span> <br>
+                                    <span id="weather_today_hour12_rain"></span> <br>
+                                    <span id="weather_today_hour13_rain"></span> <br>
+                                    <span id="weather_today_hour14_rain"></span> <br>
+                                    <span id="weather_today_hour15_rain"></span> <br>
+                                    <span id="weather_today_hour16_rain"></span> <br>
+                                    <span id="weather_today_hour17_rain"></span> <br>
+                                    <span id="weather_today_hour18_rain"></span> <br>
+                                    <span id="weather_today_hour19_rain"></span> <br>
+                                    <span id="weather_today_hour20_rain"></span> <br>
+                                    <span id="weather_today_hour21_rain"></span> <br>
+                                    <span id="weather_today_hour22_rain"></span> <br>
+                                    <span id="weather_today_hour23_rain"></span> <br>
+                                    <span id="weather_today_hour24_rain"></span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <span id="weather_today_hour1_wind"></span> <br>
+                                    <span id="weather_today_hour2_wind"></span> <br>
+                                    <span id="weather_today_hour3_wind"></span> <br>
+                                    <span id="weather_today_hour4_wind"></span> <br>
+                                    <span id="weather_today_hour5_wind"></span> <br>
+                                    <span id="weather_today_hour6_wind"></span> <br>
+                                    <span id="weather_today_hour7_wind"></span> <br>
+                                    <span id="weather_today_hour8_wind"></span> <br>
+                                    <span id="weather_today_hour9_wind"></span> <br>
+                                    <span id="weather_today_hour10_wind"></span> <br>
+                                    <span id="weather_today_hour11_wind"></span> <br>
+                                    <span id="weather_today_hour12_wind"></span> <br>
+                                    <span id="weather_today_hour13_wind"></span> <br>
+                                    <span id="weather_today_hour14_wind"></span> <br>
+                                    <span id="weather_today_hour15_wind"></span> <br>
+                                    <span id="weather_today_hour16_wind"></span> <br>
+                                    <span id="weather_today_hour17_wind"></span> <br>
+                                    <span id="weather_today_hour18_wind"></span> <br>
+                                    <span id="weather_today_hour19_wind"></span> <br>
+                                    <span id="weather_today_hour20_wind"></span> <br>
+                                    <span id="weather_today_hour21_wind"></span> <br>
+                                    <span id="weather_today_hour22_wind"></span> <br>
+                                    <span id="weather_today_hour23_wind"></span> <br>
+                                    <span id="weather_today_hour24_wind"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- credit modal -->
+
+    <footer class="credit text-center text-start">
+        <div class="text-center padding-3">
+
+            <button id="btn_1" class="btn">Credit</button>
+
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>
+                    <br>
+                    <a href="https://github.com/open-meteo/open-meteo/blob/main/LICENSE">Open-Meteo licence</a>
+                    <br>
+                    <a href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/sun" title="sun animated icons">Sun animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/rain" title="rain animated icons">Rain animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/wind" title="wind animated icons">Wind animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/temperature" title="temperature animated icons">Temperature animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/cold" title="cold animated icons">Cold animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/umbrella" title="umbrella animated icons">Umbrella animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/weather" title="weather animated icons">Weather animated icons created by Freepik - Flaticon</a>
+                    <br>
+                </div>
+
+            </div>
+
+            <script>
+                var modal = document.getElementById("myModal");
+                var btn = document.getElementById("btn_1");
+                var span = document.getElementsByClassName("close")[0];
+
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+    </footer>
+
+
+
+
+</body>
+
+</html>

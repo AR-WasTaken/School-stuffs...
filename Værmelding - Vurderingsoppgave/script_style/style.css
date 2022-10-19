@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    overflow: visible;
+}
+
+body {
+    background-image: url(../img/background-cloud.jpg);
+    background-size: 200vh;
+    background-repeat: no-repeat;
+    font-family: Arial;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    grid-template-rows: 23vh 2fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "location other-pages" "weather-now weather-today";
+    height: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        display: grid;
+        grid-template-columns: 3fr 3fr;
+        grid-template-rows: 23vh 2fr;
+        grid-auto-columns: 1fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas: "location" "other-pages" "weather-now" "weather-today";
+        height: 100%;
+        overflow: visible;
+    }
+}
+
+
+/* location */
+
+.location {
+    grid-area: location;
+}
+
+.location-box {
+    margin: 15px 4%;
+    height: 80%;
+    border-style: solid;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.location-title {
+    font-size: 5em;
+    opacity: 100%;
+}
+
+
+/* other pages */
+
+.other-pages {
+    grid-area: other-pages;
+    text-align: end;
+}
+
+.btn {
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-top: 2%;
+    margin-right: 2%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid deepskyblue;
+    border-radius: 10px;
+}
+
+.btn:hover {
+    background-color: deepskyblue;
+    color: white;
+}
+
+
+/* weather now */
+
+.weather-now {
+    grid-area: weather-now;
+}
+
+.weather-now-box {
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    margin: 30px;
+    border: 2px solid deepskyblue;
+}
+
+.weather-now-box-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 180px 40px;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "weather-now-box-sections-icon weather-now-box-sections-other" "weather-now-box-sections-sentence weather-now-box-sections-other" "wearher-now-box-sections-date wearher-now-box-sections-date";
+}
+
+.weather-now-box-sections-icon-area {
+    grid-area: weather-now-box-sections-icon;
+    width: 200px;
+}
+
+.weather-now-box-sections-icon-icon {
+    padding-top: 20%;
+    padding-left: 33%;
+    width: 90%;
+    justify-content: start;
+}
+
+.weather-now-box-sections-other {
+    grid-area: weather-now-box-sections-other;
+    padding-left: 1.5em;
+    text-align: start;
+    width: 200px;
+}
+
+.weather-now-box-sections-other-icon {
+    padding-top: 2em;
+    width: 40px;
+}
+
+#amount_of_rain {
+    font-size: 45px;
+    color: #006edb;
+}
+
+#amount_of_rain_corection {
+    margin-left: -40px;
+}
+
+#amount_of_wind {
+    font-size: 45px;
+}
+
+#amount_of_wind_gusts {
+    font-size: 19px;
+}
+
+#amount_of_temperature {
+    font-size: 45px;
+    color: #c60000;
+}
+
+#amount_of_temperature_apparent {
+    font-size: 25px;
+    color: #c60000;
+}
+
+.weather_now_box_sections_sentence {
+    grid-area: weather-now-box-sections-sentence;
+    width: 200px;
+}
+
+#weather_now_box_sections_sentence {
+    text-align: center;
+    font-size: 2em;
+}
+
+.wearher-now-box-sections-date {
+    grid-area: wearher-now-box-sections-date;
+    padding: 2em;
+    width: 200px;
+}
+
+#date_today {
+    font-size: 2em;
+}
+
+#date_today_1 {
+    font-size: 2em;
+}
+
+
+/* weather today */
+
+.weather-today {
+    grid-area: weather-today;
+}
+
+.weather-today-box {
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    margin: 30px;
+    border: 2px solid deepskyblue;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: flex-start;
+    text-align: right;
+    width: 100%;
+    background-color: white;
+    overflow: auto;
+    flex-direction: column;
+    text-justify: inter-word;
+}
+
+.flex-container div {
+    width: auto;
+    margin: 5px;
+    text-align: space-around;
+    text-justify: inter-word;
+}
+
+.weather-today-box-border_standard {
+    border-right: 2px solid #000;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.weather-today-box-styles {
+    font-size: 26px;
+}
+
+.credit {
+    margin-top: 10vh;
+    width: 100vw;
+    background-color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* Modal Content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    bottom: 0px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center
+}
+
+.text-start {
+    text-align: left!
+}
+
+.padding-3 {
+    padding: 1rem
+}
+
+.text-dark {
+    color: #212529
+}
+
+#btn_1 {
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-top: 2%;
+    margin-right: 2%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid deepskyblue;
+    border-radius: 10px;
+}
+
+#btn_1:hover {
+    background-color: deepskyblue;
+    color: white;
+}
+
+
+/* 7 day weather */
+
+.container-7-days {
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    grid-template-rows: 23vh 2fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "location-7-days other-pages-7-days" "weather-7-days weather-7-days";
+    height: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 1000px) {
+    .container-7-days {
+        display: grid;
+        grid-template-columns: 3fr 3fr;
+        grid-template-rows: 23vh 2fr;
+        grid-auto-columns: 1fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas: "location-7-days" "other-pages-7-days" "weather-7-days" "weather-7-days";
+        height: 100%;
+        overflow: visible;
+    }
+}
+
+.location-7-days {
+    grid-area: location-7-days;
+}
+
+.other-pages-7-days {
+    grid-area: other-pages-7-days;
+    text-align: end;
+}
+
+.weather-7-days {
+    grid-area: weather-7-days;
+    margin: 0 -5px;
+}

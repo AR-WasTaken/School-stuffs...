@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Day Temperature Forcast</title>
+
+    <link rel="stylesheet" href="script_style/style.css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script_style/script.js"></script>
+    <script src="script_style/plot_7_days.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="img/cloudy.gif">
+</head>
+
+<body onload="javascript:timeNow();">
+    <div class="container-7-days">
+
+        <!-- location -->
+
+        <div class="location-7-days">
+            <div class="location-box">
+                <span class="location-title">Oslo</span>
+                <br>
+                <span id="date_today">
+                            
+                    </span>
+            </div>
+        </div>
+
+        <!-- other pages -->
+
+        <div class="other-pages-7-days">
+            <a href="7 day forcast.html">
+                <button class="btn">
+                    7 day forcast
+                </button>
+            </a>
+            <a href="index.html">
+                <button class="btn" style="margin-right: 25px;">
+                    Weather today
+                </button>
+            </a>
+            <br>
+            <div class="btn" style="margin-right: 25px;">
+                <h1>
+                    The temperature the next 7 days
+                </h1>
+            </div>
+        </div>
+
+        <!-- weather 7 days -->
+
+        <div class="weather-7-days">
+            <div class="weather-today-box">
+                <div style="padding">
+                    <table class="weather-today-box-styles" style="display: contents; justify-content: center; overflow: scroll;">
+                        <div>
+                            <!-- script -->
+                            <div class="diagram-info-area-03">
+                                <div id="Temperature"></div>
+                            </div>
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- credit -->
+
+    <footer class="credit text-center text-start" style="margin-top: 200px;">
+        <div class="text-center padding-3">
+
+            <button id="btn_1" class="btn">Credit</button>
+
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>
+                    <br>
+                    <a href="https://github.com/open-meteo/open-meteo/blob/main/LICENSE">Open-Meteo licence</a>
+                    <br>
+                    <a href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/sun" title="sun animated icons">Sun animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/rain" title="rain animated icons">Rain animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/wind" title="wind animated icons">Wind animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/temperature" title="temperature animated icons">Temperature animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/cold" title="cold animated icons">Cold animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/umbrella" title="umbrella animated icons">Umbrella animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/weather" title="weather animated icons">Weather animated icons created by Freepik - Flaticon</a>
+                    <br>
+                </div>
+
+            </div>
+
+            <script>
+                var modal = document.getElementById("myModal");
+                var btn = document.getElementById("btn_1");
+                var span = document.getElementsByClassName("close")[0];
+
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+    </footer>
+</body>
+
+</html>

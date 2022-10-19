@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Day Forcast</title>
+
+    <link rel="stylesheet" href="script_style/style.css">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script_style/script_7_days.js"></script>
+    <script src="script_style/script.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="img/cloudy.gif">
+</head>
+
+<body onload="javascript:weather_week(); timeNow(); weather_week_icon_loader(); weather_week_icon_loader_day2(); weather_week_icon_loader_day3(); weather_week_icon_loader_day4(); weather_week_icon_loader_day5(); weather_week_icon_loader_day6(); weather_week_icon_loader_day7();">
+
+    <div class="container-7-days">
+
+        <!-- location -->
+
+        <div class="location-7-days">
+            <div class="location-box">
+                <span class="location-title">Oslo</span>
+                <br>
+                <span id="date_today"></span>
+            </div>
+        </div>
+
+<!-- other pages -->
+
+        <div class="other-pages-7-days">
+            <a href="index.html">
+                <button class="btn">
+                    Weather today
+                </button>
+            </a>
+            <a href="7 day temp forcast.html">
+                <button class="btn" style="margin-right: 25px;">
+                    7 day forcast temperature
+                </button>
+            </a>
+            <div class="btn" style="margin-right: 25px;">
+                <h1>
+                    The weather the next 7 days
+                </h1>
+            </div>
+        </div>
+
+<!-- weather 7 days -->
+
+        <div class="weather-7-days">
+            <div class="weather-today-box">
+                <div style="padding">
+                    <table class="weather-today-box-styles" style="display: contents; justify-content: start; overflow: scroll;">
+                        <thead>
+                            <tr style="justify-content: space-around;">
+                                <th>
+                                    <span></span>
+                                </th>
+                                <th>
+                                    Weather
+                                </th>
+                                <th style="text-align: left;">
+                                    <span>Temperature</span>
+                                </th>
+                                <th>
+                                    <span>Rain</span>
+                                </th>
+                                <th style="text-align: right;">
+                                    <span>Wind km/h</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 30px;">
+                            <tr>
+                                <td style="border-right: 1px solid #000; text-align: left;">
+                                    <span id="day1"> </span><br>
+                                    <span id="day2"> </span><br>
+                                    <span id="day3"> </span><br>
+                                    <span id="day4"> </span><br>
+                                    <span id="day5"> </span><br>
+                                    <span id="day6"> </span><br>
+                                    <span id="day7"> </span>
+                                </td>
+                                <td>
+
+                                    <span id="weather_avg_day1"></span> <br>
+                                    <span id="weather_avg_day2"></span> <br>
+                                    <span id="weather_avg_day3"></span> <br>
+                                    <span id="weather_avg_day4"></span> <br>
+                                    <span id="weather_avg_day5"></span> <br>
+                                    <span id="weather_avg_day6"></span> <br>
+                                    <span id="weather_avg_day7"></span> <br>
+
+                                </td>
+                                <td style="border-right: 1px solid #bbb;">
+                                    <span id="weather_week1_temperature_max"></span> <span id="weather_week1_temperature_min"></span> <br>
+                                    <span id="weather_week2_temperature_max"></span> <span id="weather_week2_temperature_min"></span> <br>
+                                    <span id="weather_week3_temperature_max"></span> <span id="weather_week3_temperature_min"></span> <br>
+                                    <span id="weather_week4_temperature_max"></span> <span id="weather_week4_temperature_min"></span> <br>
+                                    <span id="weather_week5_temperature_max"></span> <span id="weather_week5_temperature_min"></span> <br>
+                                    <span id="weather_week6_temperature_max"></span> <span id="weather_week6_temperature_min"></span> <br>
+                                    <span id="weather_week7_temperature_max"></span> <span id="weather_week7_temperature_min"></span>
+                                </td>
+                                <td style="border-right: 1px solid #bbb;">
+                                    <span id="weather_week1_rain"></span> <br>
+                                    <span id="weather_week2_rain"></span> <br>
+                                    <span id="weather_week3_rain"></span> <br>
+                                    <span id="weather_week4_rain"></span> <br>
+                                    <span id="weather_week5_rain"></span> <br>
+                                    <span id="weather_week6_rain"></span> <br>
+                                    <span id="weather_week7_rain"></span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <span id="weather_week1_wind_speed"></span> <span id="weather_week1_wind_gust"></span> <br>
+                                    <span id="weather_week2_wind_speed"></span> <span id="weather_week2_wind_gust"></span> <br>
+                                    <span id="weather_week3_wind_speed"></span> <span id="weather_week3_wind_gust"></span> <br>
+                                    <span id="weather_week4_wind_speed"></span> <span id="weather_week4_wind_gust"></span> <br>
+                                    <span id="weather_week5_wind_speed"></span> <span id="weather_week5_wind_gust"></span> <br>
+                                    <span id="weather_week6_wind_speed"></span> <span id="weather_week6_wind_gust"></span> <br>
+                                    <span id="weather_week7_wind_speed"></span> <span id="weather_week7_wind_gust"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- credit -->
+
+    <footer class="credit text-center text-start" style="margin-top: 200px;">
+        <div class="text-center padding-3">
+
+            <button id="btn_1" class="btn">Credit</button>
+
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>
+                    <br>
+                    <a href="https://github.com/open-meteo/open-meteo/blob/main/LICENSE">Open-Meteo licence</a>
+                    <br>
+                    <a href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/sun" title="sun animated icons">Sun animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/rain" title="rain animated icons">Rain animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/wind" title="wind animated icons">Wind animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/temperature" title="temperature animated icons">Temperature animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/cold" title="cold animated icons">Cold animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/umbrella" title="umbrella animated icons">Umbrella animated icons created by Freepik - Flaticon</a>
+                    <br>
+                    <a href="https://www.flaticon.com/free-animated-icons/weather" title="weather animated icons">Weather animated icons created by Freepik - Flaticon</a>
+                    <br>
+                </div>
+
+            </div>
+
+            <script>
+                var modal = document.getElementById("myModal");
+                var btn = document.getElementById("btn_1");
+                var span = document.getElementsByClassName("close")[0];
+
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+    </footer>
+</body>
+
+</html>
