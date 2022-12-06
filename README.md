@@ -1,1 +1,3 @@
 # School-stuffs...
+
+Forskjellige ting jeg har laget i relasjon med skolen (F21).
