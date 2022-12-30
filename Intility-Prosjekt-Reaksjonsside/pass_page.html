@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction_Heaven</title>
+
+    <link rel="icon" type="image/x-icon" href="img-pass/favicon.png">
+
+    <script src="script_pass_share.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            height: 100vh;
+        }
+        
+        body {
+            background-color: #a0a0a0;
+            background-image: url(img/background.jpg);
+            background-size: 200%;
+            background-position: center;
+            font-family: sans-serif;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .form-box {
+            width: 500px;
+            margin: 12% auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 50px 0;
+            color: #fff;
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .input-box {
+            margin: 31px auto;
+            width: 80%;
+            border-bottom: 1px solid #fff;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+        
+        .input-box input {
+            width: 90%;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #fff;
+        }
+        
+         ::placeholder {
+            color: #ccc;
+        }
+        
+        .fa {
+            margin-right: 10px;
+        }
+        
+        .eye {
+            position: absolute;
+        }
+        
+        #hide {
+            display: none;
+        }
+        
+        .login-btn {
+            margin: 40px auto 20px;
+            width: 80%;
+            display: block;
+            outline: none;
+            padding: 10px 0;
+            border: 1px solid #fff;
+            cursor: pointer;
+            background: transparent;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        svg {
+            margin-bottom: -4px;
+        }
+        
+        .btn {
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            opacity: 1
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="form-box">
+        <h1>SECRET LOGIN</h1>
+
+        <div class="input-box" id="SHAKE_BOX">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+              </svg>
+            <input type="text" placeholder="Username" id="USERNAME">
+        </div>
+
+        <div class="input-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                      </svg>
+            <input type="password" placeholder="Password" id="passwordInput">
+        </div>
+        <button type="button" class="login-btn btn" onclick="localStorageUsername(); passCheck();">LOGIN</button>
+    </div>
+
+    <script>
+        function localStorageUsername() {
+            localStorage.setItem("username", document.getElementById('USERNAME').value);
+        }
+
+        function passCheck() {
+            var passInput = document.getElementById('passwordInput').value
+            var password = "admin"
+
+            if (passInput == password) {
+                window.location.href = "_index.php";
+            } else {
+                window.location.href = "pass.html"
+            }
+        }
+
+        var favicon_images = [
+                'img/favicon/1.ico',
+                'img/favicon/2.ico',
+                'img/favicon/3.ico',
+                'img/favicon/4.ico',
+                'img/favicon/5.ico',
+                'img/favicon/6.ico',
+                'img/favicon/7.ico',
+            ],
+            image_counter = 0;
+
+        setInterval(function() {
+            if (document.querySelector("link[rel='icon']") !== null)
+                document.querySelector("link[rel='icon']").remove();
+            if (document.querySelector("link[rel='shortcut icon']") !== null)
+                document.querySelector("link[rel='shortcut icon']").remove();
+
+            document.querySelector("head").insertAdjacentHTML('beforeend', '<link rel="icon" href="' + favicon_images[image_counter] + '" type="image/gif">');
+
+            if (image_counter == favicon_images.length - 1)
+                image_counter = 0;
+            else
+                image_counter++;
+        }, 600);
+    </script>
+</body>
+
+</html>
