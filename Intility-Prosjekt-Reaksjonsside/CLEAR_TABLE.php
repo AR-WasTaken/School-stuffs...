@@ -8,7 +8,7 @@
 
     <style>
         body {
-            background-image: url('img/background-assets/background_loading_placeholder.svg');
+            background-image: url('../img/background-1.jpg');
             background-size: 100vw 100vh;
         }
     </style>
@@ -39,8 +39,7 @@
                 }
 
                 if (isset($_POST['clear'])) {
-
-                mysqli_query($kobling, "TRUNCATE TABLE Rooms");
+                    mysqli_query($kobling, "TRUNCATE TABLE Rooms");
                 }
 
                 mysqli_close($kobling);

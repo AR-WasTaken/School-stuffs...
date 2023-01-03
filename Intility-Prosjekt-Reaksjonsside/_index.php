@@ -42,15 +42,22 @@
         }, 1000);
 
         function getUsername() {
-            var name = localStorage.getItem("username");
+            var username = localStorage.getItem("username");
+            console.log(username)
+            document.getElementById('username_field').value = username;
+            document.getElementById('username_field_1').value = username;
+            document.getElementById('username_field_2').value = username;
+            document.getElementById('username_field_3').value = username;
+
+            document.getElementById('USERNAME').innerHTML = username;            
 
             // username checker :)
-            if (name == null || name == "undefined" || name === "") {
-                neme = "Guest User"
+            if (username === null || username === "undefined" || username === "") {
+                username = "Guest User"
             }
 
-            document.getElementById('USERNAME').innerHTML = name;
         }
+
 
         //might work on if I have the time [[[WWORK ON LATER]]]
 
@@ -64,12 +71,18 @@
         // var i = 3
         // var z = 2
     </script>
+
+    <style>
+        body {
+            background-image: url('img/background-assets/background.png');
+            background-size: 100vw 100vh;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body onload="getUsername();">
-
     <div class="container">
-
         <div class="rooms-list">
             <div class="temp">
                 <div class="flex-container-styles room-list-flex-container all-rooms">
@@ -105,7 +118,7 @@
                 <div>
                     <div>
                         <form action="CLEAR_TABLE.php" method="post" style="margin-left: 24%;">
-                            <button id="test" class="button" type="submit" name="clear">Clear Table</button>
+                            <button id="test" class="button" type="submit" name="clear">Clear Rooms</button>
                         </form>
                     </div>
 
@@ -125,7 +138,6 @@
                     </style>
 
                     <script>
-
                         let link = document.querySelector("button#test");
 
                         link.addEventListener("click", function(event) {
@@ -145,6 +157,7 @@
                     <form method='post' action='SEND_ROOM_FORM_TOO_php.php'>
                         <input type="text" id="roomName" class="input-field" name="RoomName" placeholder="Room Name">
                         <button type="submit" name="increment" class="btn-round" style="cursor: pointer;">+</button>
+                        <!-- ADD USER ADDED ROOM -->
                         <!-- onclick="getRoomName();" ^^^^^^^^^^ -->
                     </form>
                 </div>
@@ -162,12 +175,11 @@
                 
                     <div style="position: fixed; margin-left: 0; margin-top: -2%;">
                         <form action="CLEAR_REACTIONS.php" method="post">
-                            <button id="delReactions" class="button" type="submit" name="clear">Clear Rooms</button>
+                            <button id="delReactions" class="button" type="submit" name="clear">Clear Reactions</button>
                         </form>
                     </div>
 
                     <script>
-
                         let link = document.querySelector("button#delReactions");
 
                         link.addEventListener("click", function(event) {
@@ -177,7 +189,6 @@
                         });
                     </script>
 
-
                     <div class="container-reactions" style="margin-bottom: -12px;">
                         <div class="area-1-1 area-reactions-inside center">
 
@@ -185,8 +196,9 @@
                                 <button type="submit" style="border: 0; background-color: rgba(0,0,0,0);">
                                     <img src="img/emoji/01_smiling_face_with_sunglasses.png" alt="" style="cursor: pointer;">
                                 </button>
+                                <input type="hidden" name="username" id="username_field">
                             </form>
-                            
+
                         </div>
                         <div class="area-1-2 area-reactions-inside center">
                              <h1>
@@ -222,11 +234,11 @@
                         </div>
 
                         <div class="area-2-1 area-reactions-inside">
-
-                        <form method="post" action="send_emoji/SEND_EMOJI_PARTY_FACE_TOO_php.php">
+                            <form method="post" action="send_emoji/SEND_EMOJI_PARTY_FACE_TOO_php.php">
                                 <button type="submit" style="border: 0; background-color: rgba(0,0,0,0);">
                                     <img src="img/emoji/02_party_face.png" alt="" style="cursor: pointer;">
                                 </button>
+                                <input type="hidden" name="username" id="username_field_1">
                             </form>
                         </div>
                         <div class="area-2-2 area-reactions-inside">
@@ -263,7 +275,12 @@
                         </div>
 
                         <div class="area-3-1 area-reactions-inside">
-                            <img src="img/emoji/03_melting.png" alt="" style="cursor: pointer;">
+                            <form method="post" action="send_emoji/SEND_EMOJI_MELTING_TOO_php.php">
+                                <button type="submit" style="border: 0; background-color: rgba(0,0,0,0);">
+                                    <img src="img/emoji/03_melting.png" alt="" style="cursor: pointer;">
+                                </button>
+                                <input type="hidden" name="username" id="username_field_2">
+                            </form>
                         </div>
                         <div class="area-3-2 area-reactions-inside">
                             <h1>
@@ -299,9 +316,11 @@
                         </div>
 
                         <div class="area-4-1 area-reactions-inside">
-                            <form action="send_empji/SEND_EMOJI_LAZY_TOO_php.php">
-                                <img type="submit" src="img/emoji/04_lazy.svg" alt="" style="cursor: pointer;">
-                                <input type="" value="" style="border: 0; z-index: -100;">
+                            <form method="post" action="send_emoji/SEND_EMOJI_LAZY_TOO_php.php">
+                                <button type="submit" style="border: 0; background-color: rgba(0,0,0,0);">
+                                    <img src="img/emoji/04_lazy.png" alt="" style="cursor: pointer;">
+                                </button>
+                                <input type="hidden" name="username" id="username_field_3">
                             </form>
                         </div>
                         <div class="area-4-2 area-reactions-inside">
@@ -348,14 +367,67 @@
                 <div class="reactions-flex-items" style="cursor: default;">
                     <h1 id="fullRoomName_Reactions">R(0) - Personal Room</h1>
                 </div>
-                <div class="reactions-log-flex-items" style="cursor: default;">
+                <div class="" style="cursor: default;">
                     <div id="log-room1">
+                        <?php 
+                            $tjener = "localhost";
+                            $brukernavn = "root";
+                            $passord = "root";
+                            $database = "mydb";
 
+                            $kobling = new mysqli($tjener, $brukernavn, $passord, $database);
+
+                            $sql = "SELECT colLogg FROM Logg";
+
+                            $result = mysqli_query($kobling, $sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                            
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                echo "
+                                <div class='reactions-log-flex-items'>
+                                     <h3>" . $row["colLogg"] . "</h3>
+                                 </div>";
+                            }
+                            } else {
+                            // echo "0 results";
+                            }
+
+                            // while ($row = mysqli_fetch_assoc($result)) {
+                            //     echo "<div class='room-list-flex-items'>
+                            //         <h3>" . $row['colLogg'] . "</h3>
+                            //     </div>";
+                            // }
+
+                            // if($kobling->query($sql)) {
+                            //         echo "Spørringen $sql ble gjennomført.";
+                            //     } else {
+                            //         echo "Noe gikk galt med spørringen $sql ($kobling->error).";
+                            //     }
+                        ?>
+
+                            
+                            
+                        <nav3></nav3>
                     </div>
-
-                    <nav3></nav3>
                 </div>
             </div>
+            <div style="position: absolute; margin-left: 1%; margin-top: -20px; z-index: 100;">
+                <form method="post" action="CLEAR_LOGG.php">
+                    <button type="submit" name="clear" id="delLogg" class="button">
+                        clear Logg
+                    </button>
+                </form>
+            </div>
+            <script>
+                let link = document.querySelector("button#delLogg");
+
+                link.addEventListener("click", function(event) {
+                if (!confirm("Are you sure you want to deleate the entire Logg?")) {
+                    event.preventDefault();
+                }
+                });
+            </script>
         </div>
     </div>
 

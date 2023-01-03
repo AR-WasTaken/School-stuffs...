@@ -15,7 +15,7 @@
 
     <script>
         function goBack() {
-            window.location.href = "_index.php";
+            window.location.href = "../_index.php";
         }
     </script>
 
@@ -34,34 +34,28 @@
 
                 // Sjekk om koblingen virker
                 if($kobling->connect_error) {
-                    die("Noe gikk galt: " . $kobling->connect_error);
+                    // die("Noe gikk galt: " . $kobling->connect_error);
                 } else {
                     // echo "Koblingen virker.<br>";
                 }
 
-                $RoomName = $_POST['RoomName'];
+                $sql = "UPDATE Lazy SET 04_lazy = 04_lazy + 1";
 
-                if ($RoomName == null || $RoomName == "undefined" || $RoomName == "") {
-                    $RoomName = "Template Name";
-                }
-                if (isset($_POST["increment"])) {
-
-                    // $i = 2;
-                    // for (; $i <= 2; $i++) {
-                    //     $RoomName = "R($i) - $RoomName";
-                    // }
-
-                    $RoomName = "R(n) - $RoomName";
-
-                    
-
-                        // echo "<div class='room-list-flex-items' id='room" . $id . "'>
-                        //     <h3> R" . "$i" . " - " . $RoomName . "</h3>
-                        // </div>";
-
+                if (mysqli_query($kobling, $sql)) {
+                    // echo "Record updated successfully";
+                } else {
+                    // echo "Error updating record: " . mysqli_error($kobling);
                 }
 
-                $sql = "INSERT INTO Rooms (RoomName) VALUES ('$RoomName')";
+                $username = $_POST['username'];
+
+                if ($username == null || $username == "undefined" || $username == "") {
+                    $username = "Guest User";
+                }
+
+                $logg = $username . " reacted with lazy!!";
+
+                $sql = "INSERT INTO Logg (colLogg) VALUES ('$logg')";
 
 
                 if($kobling->query($sql)) {
@@ -69,17 +63,6 @@
                 } else {
                     // echo "Noe gikk galt med spørringen $sql ($kobling->error).";
                 }
-            ?>
-
-            <?php 
-                // $room_number = $_POST["room_number"];
-                // $filename = "Room_" . $room_number . ".php";
-
-                // $file = fopen($filename, "w");
-
-                // fwrite($file, "<html>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>");
-                
-                // fclose($file);
             ?>
     </div>
 </body>

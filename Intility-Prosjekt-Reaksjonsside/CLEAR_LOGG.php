@@ -10,12 +10,14 @@
         body {
             background-image: url('../img/background-1.jpg');
             background-size: 100vw 100vh;
+
+            color: wheat;
         }
     </style>
 
     <script>
         function goBack() {
-            window.location.href = "../_index.php";
+            window.location.assign("_index.php");
         }
     </script>
 
@@ -23,8 +25,7 @@
 
 <body onload="goBack();">
 
-    <div style="opacity: 40%;">
-        <?php
+            <?php
                 $tjener = "localhost";
                 $brukernavn = "root";
                 $passord = "root";
@@ -39,30 +40,15 @@
                     // echo "Koblingen virker.<br>";
                 }
 
-                $sql = "UPDATE PartyFace SET 02_party_face = 02_party_face + 1";
-
-                if (mysqli_query($kobling, $sql)) {
-                    // echo "Record updated successfully";
-                } else {
-                    // echo "Error updating record: " . mysqli_error($kobling);
+                if (isset($_POST['clear'])) {
+                    mysqli_query($kobling, "TRUNCATE TABLE Logg");
+                    if (mysqli_error($kobling)) {
+                        // An error occurred
+                        // echo mysqli_error($kobling);
+                      }
                 }
 
-                $username = $_POST['username'];
-
-                if ($username == null || $username == "undefined" || $username == "") {
-                    $username = "Guest User";
-                }
-
-                $logg = $username . " reacted with party face!!";
-
-                $sql = "INSERT INTO Logg (colLogg) VALUES ('$logg')";
-
-
-                if($kobling->query($sql)) {
-                    // echo "Spørringen $sql ble gjennomført.";
-                } else {
-                    // echo "Noe gikk galt med spørringen $sql ($kobling->error).";
-                }
+                mysqli_close($kobling);
             ?>
     </div>
 </body>
