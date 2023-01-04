@@ -25,7 +25,7 @@
             ],
             image_counter = 0;
 
-        var fullRoomName = "R0 - Personal Room"
+        var fullRoomName = "R0 - Main Room"
 
         setInterval(function() {
             if (document.querySelector("link[rel='icon']") !== null)
@@ -87,13 +87,14 @@
             <div class="temp">
                 <div class="flex-container-styles room-list-flex-container all-rooms">
                     <div class="room-list-flex-items" id="room1" onclick="opacityRoomChange(); roomChangeSlide(); insertRoomName();">
-                        <h3>R(0) - Personal Room</h3>
+                        <h3>R(0) - Main Room</h3>
                     </div>
 
-                    <div class="room-list-flex-items" id="room2">
-                        <h3>R(1) - Main Room</h3>
-                    </div>
-
+                    <a rel="stylesheet" href="personal_room.php" style="text-decoration: none; color: inherit;">
+                        <div class="room-list-flex-items" id="room2">
+                            <h3>R(1) - Personal Room</h3>
+                        </div>
+                    </a>
                         <?php 
                             $tjener = "localhost";
                             $brukernavn = "root";
@@ -118,7 +119,7 @@
                 <div>
                     <div>
                         <form action="CLEAR_TABLE.php" method="post" style="margin-left: 24%;">
-                            <button id="test" class="button" type="submit" name="clear">Clear Rooms</button>
+                            <button id="delRooms" class="button" type="submit" name="clear">Clear Rooms</button>
                         </form>
                     </div>
 
@@ -138,9 +139,9 @@
                     </style>
 
                     <script>
-                        let link = document.querySelector("button#test");
+                        let delRooms = document.querySelector("button#delRooms");
 
-                        link.addEventListener("click", function(event) {
+                        delRooms.addEventListener("click", function(event) {
                         if (!confirm("Are you sure you want to deleate all rooms?")) {
                             event.preventDefault();
                         }
@@ -156,19 +157,31 @@
                     <br>
                     <form method='post' action='SEND_ROOM_FORM_TOO_php.php'>
                         <input type="text" id="roomName" class="input-field" name="RoomName" placeholder="Room Name">
-                        <button type="submit" name="increment" class="btn-round" style="cursor: pointer;">+</button>
-                        <!-- ADD USER ADDED ROOM -->
-                        <!-- onclick="getRoomName();" ^^^^^^^^^^ -->
+                        <button type="submit" name="increment" class="btn-round" style="cursor: pointer;" onclick="checkRoomName(event)">+</button>
+
+                    <script>
+                        function checkRoomName(event) {
+                            const field = document.getElementById('roomName');
+                            if (field.value === '') {
+                                confirm('Please enter a valid room name');
+                                event.preventDefault();
+                            }
+                        }
+                    </script>
+
                     </form>
+
+                    
+                    
                 </div>
-                <h2>Hi <span id="USERNAME"></span></h2>
+                <h2 style="margin-left: 1.5em; padding-top: 0.5em;">Hi <span id="USERNAME"></span></h2>
             </div>
         </div>
 
         <div class="reactions">
             <div class="flex-container-styles reactions-flex-container" style="overflow: hidden;">
                 <div class="reactions-flex-items" style="cursor: default;">
-                    <h1 id="fullRoomName" onload="insertRoomName();">R(0) - Personal Room</h1>
+                    <h1 id="fullRoomName" onload="insertRoomName();">R(0) - Main Room</h1>
                 </div>
                 <div class="reactions-flex-items" style="cursor: default; margin-bottom: 10em;">
                 
@@ -180,9 +193,9 @@
                     </div>
 
                     <script>
-                        let link = document.querySelector("button#delReactions");
+                        let delReactions = document.querySelector("button#delReactions");
 
-                        link.addEventListener("click", function(event) {
+                        delReactions.addEventListener("click", function(event) {
                         if (!confirm("Are you sure you want to deleate all reactions?")) {
                             event.preventDefault();
                         }
@@ -365,7 +378,7 @@
         <div class="reactions-log">
             <div class="flex-container-styles reactions-log-flex-container">
                 <div class="reactions-flex-items" style="cursor: default;">
-                    <h1 id="fullRoomName_Reactions">R(0) - Personal Room</h1>
+                    <h1 id="fullRoomName_Reactions">R(0) - Main Room</h1>
                 </div>
                 <div class="" style="cursor: default;">
                     <div id="log-room1">
@@ -420,9 +433,9 @@
                 </form>
             </div>
             <script>
-                let link = document.querySelector("button#delLogg");
+                let delLogg = document.querySelector("button#delLogg");
 
-                link.addEventListener("click", function(event) {
+                delLogg.addEventListener("click", function(event) {
                 if (!confirm("Are you sure you want to deleate the entire Logg?")) {
                     event.preventDefault();
                 }

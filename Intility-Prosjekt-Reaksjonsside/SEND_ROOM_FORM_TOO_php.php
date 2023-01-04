@@ -44,22 +44,22 @@
                 if ($RoomName == null || $RoomName == "undefined" || $RoomName == "") {
                     $RoomName = "Template Name";
                 }
-                if (isset($_POST["increment"])) {
 
-                    // $i = 2;
-                    // for (; $i <= 2; $i++) {
+                
+
+                // if (isset($_POST["increment"])) {
+
+                    // for ($i = 2; $i <= 2; $i++) {
                     //     $RoomName = "R($i) - $RoomName";
-                    // }
-
-                    $RoomName = "R(n) - $RoomName";
-
-                    
+                    //   }
 
                         // echo "<div class='room-list-flex-items' id='room" . $id . "'>
                         //     <h3> R" . "$i" . " - " . $RoomName . "</h3>
                         // </div>";
 
-                }
+                // }
+
+                $RoomName = "R(n) - $RoomName";
 
                 $sql = "INSERT INTO Rooms (RoomName) VALUES ('$RoomName')";
 
