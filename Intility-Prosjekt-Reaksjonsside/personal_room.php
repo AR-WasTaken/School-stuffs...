@@ -41,21 +41,15 @@
                 image_counter++;
         }, 1000);
 
+        // Needs to be declared outside of function cuz it needs to be a global variable
+        var username = localStorage.getItem("username");
         function getUsername() {
-            var username = localStorage.getItem("username");
-            console.log(username)
-            document.getElementById('username_field').value = username;
-            document.getElementById('username_field_1').value = username;
-            document.getElementById('username_field_2').value = username;
-            document.getElementById('username_field_3').value = username;
-
-            document.getElementById('USERNAME').innerHTML = username;            
+            document.getElementById('username').innerHTML = username;
 
             // username checker :)
             if (username === null || username === "undefined" || username === "") {
                 username = "Guest User"
             }
-
         }
 
 
@@ -165,7 +159,7 @@
                         <!-- onclick="getRoomName();" ^^^^^^^^^^ -->
                     </form>
                 </div>
-                <h2 style="margin-left: 1.5em; padding-top: 0.5em;">Hi <span id="USERNAME"></span></h2>
+                <h2 style="margin-left: 1.5em; padding-top: 0.5em;">Hi <span id="username"></span> </h2>
             </div>
         </div>
 
@@ -199,19 +193,14 @@
 
                                 function incrementValueSunglasses() {
                                     valueSunglasses++;
-                                    if (valueSunglasses === "" || valueSunglasses === null || typeof valueSunglasses === "undefined") {
+                                    if (valueSunglasses === 0 || valueSunglasses === "" || valueSunglasses === null || typeof valueSunglasses === "undefined") {
                                         valueSunglasses = "--";
                                     }
                                     document.getElementById('area_1_1__amount_of_reaction').innerHTML = valueSunglasses;
                                 }
                             </script>
-                            <script>
-                                var y = USERNAME + " reacted with lazy!!"
 
-                                document.getElementById('log-room1') = y
-                            </script>
-
-                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueSunglasses()">
+                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueSunglasses(); loggSunglasses();">
                                 <img src="img/emoji/01_smiling_face_with_sunglasses.png" alt="" style="cursor: pointer;">
                             </button>
 
@@ -231,14 +220,14 @@
 
                                 function incrementValuePartyFace() {
                                     valuePartyFace++;
-                                    if (valuePartyFace === "" || valuePartyFace === null || typeof valuePartyFace === "undefined") {
+                                    if (valuePartyFace === 0 || valuePartyFace === "" || valuePartyFace === null || typeof valuePartyFace === "undefined") {
                                         valuePartyFace = "--";
                                     }
                                     document.getElementById('area_2_1__amount_of_reaction').innerHTML = valuePartyFace;
                                 }
                             </script>
                         
-                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValuePartyFace()">
+                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValuePartyFace(); loggPartyFace();">
                                 <img src="img/emoji/02_party_face.png" alt="" style="cursor: pointer;">
                             </button>
 
@@ -257,14 +246,14 @@
 
                                 function incrementValueMelting() {
                                     valueMelting++;
-                                    if (valueMelting === "" || valueMelting === null || typeof valueMelting === "undefined") {
+                                    if (valueMelting === 0 || valueMelting === "" || valueMelting === null || typeof valueMelting === "undefined") {
                                         valueMelting = "--";
                                     }
                                     document.getElementById('area_3_1__amount_of_reaction').innerHTML = valueMelting;
                                 }
                             </script>
 
-                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueMelting()">
+                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueMelting(); loggMelting();">
                                 <img src="img/emoji/03_melting.png" alt="" style="cursor: pointer;">
                             </button>
                         </div>
@@ -282,14 +271,14 @@
 
                                 function incrementValueLazy() {
                                     valueLazy++;
-                                    if (valueLazy === "" || valueLazy === null || typeof valueLazy === "undefined") {
+                                    if (valueLazy === 0 || valueLazy === "" || valueLazy === null || typeof valueLazy === "undefined") {
                                         valueLazy = "--";
                                     }
                                     document.getElementById('area_4_1__amount_of_reaction').innerHTML = valueLazy;
                                 }
                             </script>
 
-                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueLazy()">
+                            <button style="border: 0; background-color: rgba(0,0,0,0);" onclick="incrementValueLazy(); loggLazy();">
                                 <img src="img/emoji/04_lazy.png" alt="" style="cursor: pointer;">
                             </button>
                         </div>
@@ -312,9 +301,43 @@
                     <h1 id="fullRoomName_Reactions">R(1) - Personal Room</h1>
                 </div>
                 <div class="" style="cursor: default;">
-                    <div id="log-room1">
+                    <div>
 
-                        <nav3></nav3>
+                    <script>
+                        function loggSunglasses() {
+                            const div = document.createElement('div'); // Create a new div element
+                            div.innerHTML = `<div class='reactions-log-flex-items' style='cursor: default; margin-bottom: -0.04em;'>
+                                                <h3>${username} reacted with sunglasses!!!</h3>
+                                            </div>`;
+                            document.getElementById('log-room1').appendChild(div); // Append the div element to the "log-room1" element
+                        }
+
+                        function loggPartyFace() {
+                            const div = document.createElement('div'); // Create a new div element
+                            div.innerHTML = `<div class='reactions-log-flex-items' style='cursor: default; margin-bottom: -0.04em;'>
+                                                <h3>${username} reacted with partyface!!!</h3>
+                                            </div>`;
+                            document.getElementById('log-room1').appendChild(div); // Append the div element to the "log-room1" element
+                        }
+
+                        function loggMelting() {
+                            const div = document.createElement('div'); // Create a new div element
+                            div.innerHTML = `<div class='reactions-log-flex-items' style='cursor: default; margin-bottom: -0.04em;'>
+                                                <h3>${username} reacted with melting!!!</h3>
+                                            </div>`;
+                            document.getElementById('log-room1').appendChild(div); // Append the div element to the "log-room1" element
+                        }
+
+                        function loggLazy() {
+                            const div = document.createElement('div'); // Create a new div element
+                            div.innerHTML = `<div class='reactions-log-flex-items' style='cursor: default; margin-bottom: -0.04em;'>
+                                                <h3>${username} reacted with lazy!!!</h3>
+                                            </div>`;
+                            document.getElementById('log-room1').appendChild(div); // Append the div element to the "log-room1" element
+                        }
+                    </script>
+
+                        <nav3 id="log-room1"></nav3>
                     </div>
                 </div>
             </div>

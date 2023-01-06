@@ -45,7 +45,7 @@
                     $RoomName = "Template Name";
                 }
 
-                
+
 
                 // if (isset($_POST["increment"])) {
 
@@ -72,14 +72,14 @@
             ?>
 
             <?php 
-                // $room_number = $_POST["room_number"];
-                // $filename = "Room_" . $room_number . ".php";
+                $room_number = $_POST["room_number"];
+                $filename = "Room_" . $room_number . ".php";
 
-                // $file = fopen($filename, "w");
+                $file = fopen($filename, "w");
 
-                // fwrite($file, "<html>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>");
+                fwrite($file, "<html>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>");
                 
-                // fclose($file);
+                fclose($file);
             ?>
     </div>
 </body>

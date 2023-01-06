@@ -405,18 +405,6 @@
                             } else {
                             // echo "0 results";
                             }
-
-                            // while ($row = mysqli_fetch_assoc($result)) {
-                            //     echo "<div class='room-list-flex-items'>
-                            //         <h3>" . $row['colLogg'] . "</h3>
-                            //     </div>";
-                            // }
-
-                            // if($kobling->query($sql)) {
-                            //         echo "Spørringen $sql ble gjennomført.";
-                            //     } else {
-                            //         echo "Noe gikk galt med spørringen $sql ($kobling->error).";
-                            //     }
                         ?>
 
                             
