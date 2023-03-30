@@ -37,13 +37,15 @@ struct Cart: Codable, Identifiable {
 
 //må bruke VAR hvis ikke er ikke koden "mutable"... og det blir en error...
 struct Users: Codable, Identifiable {
-    var id: Int = 1
-    var username: String = "Johnd"
-    var password: String = "m38rmF$"
+    var id: Int
+    var username: String
+    var password: String
+    var email: String
+    var name: Name?
     
     struct Name: Codable {
-        var fName: String = "John"
-        var lName: String = "Doe"
+        var firstname: String
+        var lastname: String
     }
 }
 
@@ -73,7 +75,7 @@ class DataFetcher: ObservableObject {
     }
     
     func fetchCart() {
-        let urlString = "https://fakestoreapi.com/users"
+        let urlString = "https://fakestoreapi.com/carts"
         guard let url = URL(string: urlString) else { return }
 
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -109,6 +111,7 @@ class DataFetcher: ObservableObject {
             }
         }.resume()
     }
+
 }
 
 
@@ -117,118 +120,107 @@ struct ContentView: View {
     @State private var isLoggedIn = false
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            ProductView()
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
+        VStack {
+            /*NavigationView {
+                NavigationLink(destination: ProfileView(isLoggedIn: $isLoggedIn, user: nil)) {
+                    Text("ProfileView")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
-                .tag(0)
-            CartView()
-                .tabItem {
-                    Image(systemName: "cart")
-                    Text("Cart")
-                }
-                .tag(1)
-            ProfileView(isLoggedIn: $isLoggedIn)
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Profile")
-                }
-                .tag(2)
+                .buttonStyle(PlainButtonStyle())
+            }*/
+            
+            TabView(selection: $selectedTab) {
+                ProductView()
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                    .tag(0)
+                CartView(/*matchedUser: $matchedUser*/)
+                    .tabItem {
+                        Image(systemName: "cart")
+                        Text("Cart")
+                    }
+                    .tag(1)
+                LoginView(isLoggedIn: $isLoggedIn)
+                    .tabItem {
+                        Image(systemName: "person.crop.circle")
+                        Text("Profile")
+                    }
+                    .tag(2)
+            }
+            .background(Color.white)
+            .zIndex(3)
         }
     }
 }
 
 struct ProductView: View {
     @StateObject var dataFetcher = DataFetcher()
-
-    var body: some View {
-        NavigationView {
-            List(dataFetcher.products) { product in
-                NavigationLink(destination: ProductDetailView(product: product)) {
-                    ProductRowView(product: product)
-                }
-            }
-            .onAppear {
-                dataFetcher.fetchProducts()
-            }
-            .navigationTitle("Fakeazon")
-        }
-    }
-}
-
-struct CartView: View {
-    @StateObject var dataFetcher = DataFetcher()
     
-    var body: some View {
-        Text("Hello - Cart")
-    }
-}
-
-/*
- 
- */
-
-struct LoginView: View {
-    @Binding var isLoggedIn: Bool
-    @State var username = ""
-    @State var password = ""
-    @State var users = [Users]()
+    let categories = ["All", "men's clothing", "women's clothing", "jewelery", "electronics"]
     
+    @State private var selectedCategory = "All"
+
     var body: some View {
         NavigationView {
             VStack {
-                VStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Username")
-                            .font(.headline)
-                        TextField("Enter your username", text: $username)
-                            .autocapitalization(.none)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Password")
-                            .font(.headline)
-                        SecureField("Enter your password", text: $password)
-                            .autocapitalization(.none)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                    Button("Login") {
-                        let matchingUser = users.first { $0.username == username && $0.password == password }
-                        if let _ = matchingUser {
-                            isLoggedIn = true
-                        } else {
-                            // Show error message
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(categories, id: \.self) { category in
+                            Button(action: {
+                                selectedCategory = category
+                            }) {
+                                Text(category.capitalized)
+                                    .padding(-2)
+                                    .foregroundColor(Color(red: 0.10, green: 0.10, blue: 0.10))
+                            }
+                            .buttonStyle(BorderedProminentOrBordered(isProminent: selectedCategory == category))
                         }
                     }
-                    .padding(.vertical, 13)
-                    .padding(.horizontal, 16)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .padding(.horizontal)
                 }
+                
+                List(filteredProducts()) { product in
+                    NavigationLink(destination: ProductDetailView(product: product)) {
+                        ProductRowView(product: product)
+                    }
+                }
+                .onAppear {
+                    dataFetcher.fetchProducts()
+                }
+                .navigationTitle("Fakeazon")
             }
-            .padding(.horizontal, 24)
         }
+    }
+    
+    func filteredProducts() -> [Product] {
+        guard selectedCategory != "All" else {
+            return dataFetcher.products
+        }
+        
+        return dataFetcher.products.filter { $0.category.lowercased() == selectedCategory.lowercased() }
     }
 }
 
-
-
-struct ProfileView: View {
-    @StateObject var dataFetcher = DataFetcher()
-    @Binding var isLoggedIn: Bool
-
-    var body: some View {
-        if isLoggedIn {
-            Text("Welcome back!")
-        } else {
-            LoginView(isLoggedIn: $isLoggedIn, users: dataFetcher.users)
-        }
+struct BorderedProminentOrBordered: ButtonStyle {
+    var isProminent: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(isProminent ? Color.blue : Color(red: 0.97, green: 0.96, blue: 0.99))
+            .foregroundColor(isProminent ? Color(red: 0.97, green: 0.96, blue: 0.99) : Color.blue)
+            .overlay (
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isProminent ? Color.blue : Color(red: 0.97, green: 0.96, blue: 0.99), lineWidth: 2)
+                )
+            .cornerRadius(10)
     }
 }
-
 
 
 
@@ -237,14 +229,13 @@ struct ProductRowView: View {
 
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: product.image)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 80.0)
-                            } placeholder: {
-                                ProgressView()
-                            }
+            AsyncImage(url: URL(string: product.image)) { image in image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80.0)
+            } placeholder: {
+                ProgressView()
+            }
             
             VStack(alignment: .leading) {
                 Text(product.title)
@@ -253,6 +244,7 @@ struct ProductRowView: View {
                     .foregroundColor(.gray)
             }
         }
+        .padding(.vertical, 7)
     }
 }
 
@@ -262,7 +254,7 @@ struct ProductDetailView: View {
     let product: Product
     
     var body: some View {
-
+        
         NavigationView {
             List {
                 VStack(alignment: .center, spacing: 16) {
@@ -309,10 +301,209 @@ struct ProductDetailView: View {
                 }
             }
         }
+        .padding(.top, -225)
     }
 }
 
 
+
+
+
+struct CartView: View {
+    @StateObject var dataFetcher = DataFetcher()
+    
+//    @Binding var matchedUser: Bool
+    
+    var body: some View {
+        NavigationView {
+//            if matchedUser {
+//                List(dataFetcher.products) { product in
+//                    NavigationLink(destination: ProductDetailView(product: product)) {
+//                        ProductRowView(product: product)
+//                    }
+//                }
+//                .onAppear {
+//                    dataFetcher.fetchProducts()
+//                }
+//                .navigationTitle("Cart")
+//            }
+            Text("Placeholder")
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+struct LoginView: View {
+    @Binding var isLoggedIn: Bool
+    @StateObject var dataFetcher = DataFetcher()
+    @State var username = ""
+    @State var password = ""
+    @State var email = ""
+    @State var users = [Users]()
+    @State var showAlert = false
+    
+    @State var matchedUser: Users?
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Email or Username")
+                        .font(.headline)
+                    TextField("Enter your email or username", text: $username)
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Password")
+                        .font(.headline)
+                    SecureField("Enter your password", text: $password)
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                Text("m38rmF$")
+                
+                Text("Username: \(dataFetcher.users.first?.username ?? ""), Email: \(dataFetcher.users.first?.email ?? ""), Password: \(dataFetcher.users.first?.password ?? "")")
+                
+                Text("Username: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].username : ""), Email: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].email : ""), Password: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].password : "")")
+
+                Button(action: {
+                    let matchingUsers = dataFetcher.users.filter { $0.username == username || $0.email == username }
+                    
+                    if let matchedUser = matchingUsers.first, matchedUser.password == password {
+                        isLoggedIn = true
+                        self.matchedUser = matchedUser
+                        username = ""
+                    } else {
+                        let matchingEmail = dataFetcher.users.filter { $0.email == email }
+                        
+                        if let matchedEmailUser = matchingEmail.first, matchedEmailUser.password == password {
+                            isLoggedIn = true
+                            self.matchedUser = matchedEmailUser
+                            password = ""
+                        } else {
+                            self.showAlert = true
+                        }
+                    }
+                }) {
+                    Text(isLoggedIn ? "Logout" : "Login")
+                        .padding(.vertical, 13)
+                        .padding(.horizontal, 16)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text("Incorrect Username/Email or Password"), dismissButton: .default(Text("OK")))
+                }
+                if isLoggedIn {
+                    NavigationLink(destination: ProfileView(isLoggedIn: $isLoggedIn, matchedUser: $matchedUser)) {
+                        Text("Go to Profile")
+                    }
+                }
+
+                
+            }
+            .padding(.horizontal, 24)
+            .onAppear {
+                dataFetcher.fetchUsers()
+            }
+        }
+    }
+}
+
+
+
+
+//profile view
+struct ProfileView: View {
+    @StateObject var dataFetcher = DataFetcher()
+    @Binding var isLoggedIn: Bool
+    @Binding var matchedUser: Users?
+    @State var showAlert = false
+    
+    var user: Users?
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                
+                HStack {
+                    Text(String(matchedUser?.id ?? 0))
+                    Button(action: {
+                        if isLoggedIn {
+                            self.isLoggedIn = false
+                        }
+                    }) {
+                        if isLoggedIn {
+                            Text("Logout")
+                        } else {
+                            Text("not logged in")
+                        }
+                    }
+                    .padding(.vertical, 13)
+                    .padding(.horizontal, 16)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .padding(.trailing, -30)
+                    
+                    if !isLoggedIn {
+                        NavigationLink(destination: {
+                            LoginView(isLoggedIn: $isLoggedIn)
+                        }) {
+                            EmptyView()
+                        }
+                    }
+                }
+                .padding(.leading, 227)
+                
+                Spacer()
+                
+                if isLoggedIn {
+                    if let matchedUser = matchedUser {
+                        displayUserInfo(for: matchedUser)
+                    }
+                } else if let user = user {
+                    displayUserInfo(for: user)
+                } else {
+                    Text("erronus you aren't logged inn somehow...")
+                    //LoginView(isLoggedIn: $isLoggedIn, users: dataFetcher.users)
+                }
+                
+                Spacer()
+            }
+        }
+    }
+    
+    private func displayUserInfo(for user: Users) -> some View {
+        List {
+            VStack(alignment: .center, spacing: 16) {
+                if let name = user.name {
+                    Text("\(name.firstname) \(name.lastname)")
+                        .font(.largeTitle)
+                }
+                Text("Email")
+                    .font(.headline)
+                
+                Text(user.email)
+                    .font(.body)
+                    .foregroundColor(.gray)
+                
+                Text("Location")
+                    .font(.headline)
+                Spacer()
+            }
+        }
+    }
+}
 
 
 struct ContentView_Previews: PreviewProvider {
