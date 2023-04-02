@@ -199,7 +199,7 @@ struct ContentView: View {
                         Text("Home")
                     }
                     .tag(0)
-                CartView(isLoggedIn: $isLoggedIn, matchedUser: $matchedUser)
+                CartView(userId: 1, isLoggedIn: $isLoggedIn/*, matchedUser: $matchedUser*/)
                     .tabItem {
                         Image(systemName: "cart")
                         Text("Cart")
@@ -362,52 +362,51 @@ struct ProductDetailView: View {
 
 
 struct CartView: View {
+    let userId: Int?
     @Binding var isLoggedIn: Bool
-    @Binding var matchedUser: Users?
     @State private var cart: Cart?
     @State private var productDetailsList: [ProductDetails] = []
 
     var body: some View {
-        if isLoggedIn == false {
-            Text("Peasle logg in")
-        } else {
-            VStack {
-                if let cart = cart {
-                    Text("Cart ID: \(cart.id)")
-                    Text("User ID: \(cart.userId)")
-                    Text("Date: \(cart.date)")
-                    
-                    ForEach(productDetailsList, id: \.id) { product in
-                        VStack(alignment: .leading) {
-                            Text("Product ID: \(product.id)")
-                            Text("Title: \(product.title)")
-                            Text("Price: \(product.price)")
-                            Text("Description: \(product.description)")
-                            Text("Category: \(product.category)")
-                            Text("Image URL: \(product.image)")
-                            Text("Rating: \(product.rating.rate), Count: \(product.rating.count)")
-                            Text("Quantity: \(quantityForProduct(withId: product.id))")
+        VStack {
+            if isLoggedIn == false {
+                Text("Please logg in :)")
+            } else {
+                VStack {
+                    if let cart = cart {
+                        ForEach(productDetailsList, id: \.id) { productDetails in
+                            VStack(alignment: .leading) {
+                                Text("Product ID: \(productDetails.id)")
+                                Text("Title: \(productDetails.title)")
+                                Text("Price: \(productDetails.price)")
+                                Text("Description: \(productDetails.description)")
+                                Text("Category: \(productDetails.category)")
+                                Text("Image URL: \(productDetails.image)")
+                                Text("Rating: \(productDetails.rating.rate), Count: \(productDetails.rating.count)")
+                                Text("Quantity: \(quantityForProduct(withId: productDetails.id))")
+                            }
+                            .padding()
                             Divider()
                         }
+                    } else {
+                        Text("Loading data...")
                     }
-                } else {
-                    Text("Loading data...")
                 }
             }
-            .onAppear {
-                if let userId = matchedUser?.id {
-                    print("Fetching cart data for user ID: \(userId)")
-                    dataFetcherCart.fetchData(userId: userId) { fetchedData in
-                        DispatchQueue.main.async {
-                            self.cart = fetchedData
-                            
-                            if let products = fetchedData?.products {
-                                for product in products {
-                                    dataFetcherCart.fetchProductData(productId: product.productId) { fetchedProduct in
-                                        DispatchQueue.main.async {
-                                            if let fetchedProduct = fetchedProduct {
-                                                self.productDetailsList.append(fetchedProduct)
-                                            }
+        }
+
+        .onAppear {
+            if let userId = self.userId {
+                dataFetcherCart.fetchData(userId: userId) { fetchedData in
+                    DispatchQueue.main.async {
+                        self.cart = fetchedData
+
+                        if let products = fetchedData?.products {
+                            for product in products {
+                                dataFetcherCart.fetchProductData(productId: product.productId) { fetchedProductDetails in
+                                    DispatchQueue.main.async {
+                                        if let fetchedProductDetails = fetchedProductDetails {
+                                            self.productDetailsList.append(fetchedProductDetails)
                                         }
                                     }
                                 }
@@ -423,7 +422,6 @@ struct CartView: View {
         return cart?.products.first(where: { $0.productId == id })?.quantity ?? 0
     }
 }
-
 
 
 struct LoginView: View {
@@ -595,3 +593,114 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+
+/*
+struct LoginView: View {
+    // Binding-variabel er brukt fordi den hentes fra en ennen struct, variablen er brukt for å holde oversikt over om brukeren er logget inn eller ikke.
+    @Binding var isLoggedIn: Bool
+    // StateObject for å hente data fra API
+    @StateObject var dataFetcher = DataFetcher()
+    // State-variabler for å lagre brukernavn og passord
+    @State var username = ""
+    @State var password = ""
+    @State var email = ""
+    @State var users = [Users]()
+    // State-variabel for å vise feilmelding dersom innlogging mislykkes
+    @State var showAlert = false
+    // State-variabel for å lagre matchet bruker (men har egentlig ganske samme funskjon som users)
+    
+    @State var matchedUser: Users?
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 16) {
+                //Her setter jeg opp to tekst felt ett der man skirver inn brukernavn og ett der man skirver inn passord
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Email or Username")
+                        .font(.headline)
+                    TextField("Enter your email or username", text: $username) // pass på $username, den trenger vi senre.
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("Password")
+                        .font(.headline)
+                    SecureField("Enter your password", text: $password) // pass på $passord, den trenger vi senre.
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                // dette er også debuging kode så det kan ignoreres
+                Text("m38rmF$")
+                Text("Johnd")
+                // her setter jeg opp logiken bak innloggigen.
+                Button(action: {
+                    // her filtreres brukerlisten (hentet fra APIet) for å finne brukere som matcher brukernavnet eller e-post som er satt inn i tekst feltet over.
+                    // dataFetcher.users er en array av Users objekter fetched som er hentet fra dataFetcher (der jeg henter fra APIet).
+                    // filter { } brukes så for å skure igjennom "User" ((@State var users = [Users])). Filterfunksjonen returnerer deretter en ny array, men denne inneholder bare elementene som oppfyller de betingelse som er spesifisert. I dette tilfelle er dette de som har er bruker navn som er satt til "Johnd" og et passord som er "m38rmF$".
+                    // vær OBS: $0 brukes bare for å representere det gjeldende elementet i listen som behandles, så det osm ble skrevet inn i "Text()".
+                    // vær OBS: "$0.email == username", sier bare essensielt at selv om man har skrevet in e-mail så skal fortsat "$username" (John), legges legges inn i "matchingUsers"
+                    let matchingUsers = dataFetcher.users.filter { $0.username == username || $0.email == username }
+                    // etter at man trykker på "login" knappen sjekker man her om "matchingUser" er det samme som "matchedUser". (matchingUser definierte vi akkurat så det vet vi er en liste som inkluderer brukernavnet [johnd]. Vi vet at det bare er en mulig i denne listen til en hver tid så vi kan derfor bruke .first for å hente ut den første og eneste brukeren.)
+                    // , men denne linjen gjør jo også noe mer, den sjekker også om det som var skrevet inn her: "SecureField("Enter your password", text: $password)", altså passordet, er det samme som passordet som er hentet fra APIen.
+                    // vær OBS password og password er ikke det samme, dette er fordi den sjekker "matchedUser.password", med "password". Du kan tenke på matchedUser.password som en overfolder med en underfolder, dette gjør at "password" som bare er i overfolderen ikke kan snakke med "password" som bare er i underfolderen.
+                    if let matchedUser = matchingUsers.first, matchedUser.password == password {
+                        // her settes bare en statement til true, det er dette som lar oss logge inn.
+                        isLoggedIn = true
+                        self.matchedUser = matchedUser
+                        // disse settes til "" ettersom username og passord fortsatt er fylt inn hvis man trykker tilbake uten at man gjør dette.
+                        username = ""
+                        password = ""
+                        
+                    } else {
+                        // her gjøres essensielt akkurat det samme, mne med e-mail i stedenfor brukernavn. Dette er bare en 'nesta' if settning. Den sjekker først om man har riktig brukernavn og passord, etter dette sjekker den om man har riktig e-mail og passord. Hvis en av dem er riktig kan man logge inn, hvis ingen av dem er riktig kan man ikke det.
+                        let matchingEmail = dataFetcher.users.filter { $0.email == email }
+                        if let matchedEmailUser = matchingEmail.first, matchedEmailUser.password == password { isLoggedIn = true
+                            self.matchedUser = matchedEmailUser
+                            username = ""
+                            password = ""
+                            
+                        } else {
+                            // det er dette som skjer hvis man ikke har rett. En alert vises. "Alert" koden kan finnes i ".alert(isPresented: $showAlert) {".
+                            self.showAlert = true }
+                        
+                    }
+                    
+                }) {
+                    // Her styler vi bare knappen
+                    Text(isLoggedIn ? "Logout" : "Login")
+                        .padding(.vertical, 13)
+                        .padding(.horizontal, 16)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    
+                }
+                // her er koden for "alerten". Veldig basic, har bare en tittel, litt tekst og en ok knapp, men man trenger ikke noe mer enn det. :)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text("Incorrect Username/Email or Password"), dismissButton: .default(Text("OK")))
+                    
+                }
+                // noe viktig man må gjøre før man kjører logg inn logiken, er å sjekke om man allerede er logget inn. Dette gjørs her. "if isLoggedIn = true" (" = true" droppes fordi "isLoggedIn" er true.) 
+                if isLoggedIn {
+            // her sendes man bare til "ProfileView", som er der man ser info om brukeren.
+                    NavigationLink(destination: ProfileView(isLoggedIn: $isLoggedIn, matchedUser: $matchedUser)) {
+                        Text("Go to Profile")
+                        
+                    }
+                    
+                }
+                
+            }
+            .padding(.horizontal, 24)
+            // og viktigst av alt (kanskje) er denne, hvis man ikke henter noe data kan man ikke få gjort noe av dette.
+            .onAppear {
+                print("LoginView Appeared")
+                dataFetcher.fetchUsers()
+                print(dataFetcher)
+                print(dataFetcher.fetchUsers)
+                
+            }
+            
+        }
+        
+    }
+    
+}*/
