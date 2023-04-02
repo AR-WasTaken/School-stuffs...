@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Foundation
 
 struct Product: Codable, Identifiable {
     let id: Int
@@ -23,17 +22,6 @@ struct Product: Codable, Identifiable {
     }
 }
 
-struct Cart: Codable, Identifiable {
-    let id: Int
-    let userId: Int
-    let date: Date
-    let products: [Product]
-    
-    struct CartProducts: Codable {
-        let carts: [Cart]
-    }
-}
-
 
 //må bruke VAR hvis ikke er ikke koden "mutable"... og det blir en error...
 struct Users: Codable, Identifiable {
@@ -41,18 +29,115 @@ struct Users: Codable, Identifiable {
     var username: String
     var password: String
     var email: String
-    var name: Name?
+    var phone: String
     
+    var name: Name?
+    var address: Address?
+
     struct Name: Codable {
         var firstname: String
         var lastname: String
     }
+
+    struct Address: Codable {
+        var city: String
+        var street: String
+        var number: Int
+        var zipcode: String
+    }
+}
+
+//
+
+struct Cart: Codable {
+    let id: Int
+    let userId: Int
+    let date: String
+    let products: [Product]
+    let __v: Int
+    
+    struct Product: Codable {
+        let productId: Int
+        let quantity: Int
+    }
+}
+
+struct ProductDetails: Codable {
+    let id: Int
+    let title: String
+    let price: Double
+    let description: String
+    let category: String
+    let image: String
+    let rating: Rating
+    
+    struct Rating: Codable {
+        let rate: Double
+        let count: Int
+    }
 }
 
 
+
+struct dataFetcherCart {
+
+    static func fetchData(userId: Int, completion: @escaping (Cart?) -> Void) {
+        let urlString = "https://fakestoreapi.com/carts/\(userId)"
+
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let fetchedData = try decoder.decode(Cart.self, from: data)
+                    print("Fetched cart data: \(fetchedData)")
+                    completion(fetchedData)
+                } catch {
+                    print("Error decoding data: \(error)")
+                    completion(nil)
+                }
+            } else {
+                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+            }
+        }.resume()
+    }
+
+
+    static func fetchProductData(productId: Int, completion: @escaping (ProductDetails?) -> Void) {
+        let urlString = "https://fakestoreapi.com/products/\(productId)"
+
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let fetchedData = try decoder.decode(ProductDetails.self, from: data)
+                    completion(fetchedData)
+                } catch {
+                    print("Error decoding data: \(error)")
+                    completion(nil)
+                }
+            } else {
+                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+            }
+        }.resume()
+    }
+}
+
 class DataFetcher: ObservableObject {
     @Published var products: [Product] = []
-    @Published var cart: [Cart] = []
     @Published var users: [Users] = []
 
     func fetchProducts() {
@@ -73,26 +158,7 @@ class DataFetcher: ObservableObject {
             }
         }.resume()
     }
-    
-    func fetchCart() {
-        let urlString = "https://fakestoreapi.com/carts"
-        guard let url = URL(string: urlString) else { return }
 
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                let decoder = JSONDecoder()
-                do {
-                    let cart = try decoder.decode([Cart].self, from: data)
-                    DispatchQueue.main.async {
-                        self.cart = cart
-                    }
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        }.resume()
-    }
-    
     func fetchUsers() {
         let urlString = "https://fakestoreapi.com/users"
         guard let url = URL(string: urlString) else { return }
@@ -104,6 +170,7 @@ class DataFetcher: ObservableObject {
                     let users = try decoder.decode([Users].self, from: data)
                     DispatchQueue.main.async {
                         self.users = users
+                        print("Fetched Users: \(users)")
                     }
                 } catch {
                     print("Error decoding JSON: \(error)")
@@ -111,27 +178,20 @@ class DataFetcher: ObservableObject {
             }
         }.resume()
     }
-
 }
 
 
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var isLoggedIn = false
-
+    @State private var matchedUser: Users?
+    
+    @StateObject var dataFetcher = DataFetcher()
+    
+    let userId: Int?
+    
     var body: some View {
         VStack {
-            /*NavigationView {
-                NavigationLink(destination: ProfileView(isLoggedIn: $isLoggedIn, user: nil)) {
-                    Text("ProfileView")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .buttonStyle(PlainButtonStyle())
-            }*/
-            
             TabView(selection: $selectedTab) {
                 ProductView()
                     .tabItem {
@@ -139,21 +199,19 @@ struct ContentView: View {
                         Text("Home")
                     }
                     .tag(0)
-                CartView(/*matchedUser: $matchedUser*/)
+                CartView(isLoggedIn: $isLoggedIn, matchedUser: $matchedUser)
                     .tabItem {
                         Image(systemName: "cart")
                         Text("Cart")
                     }
                     .tag(1)
-                LoginView(isLoggedIn: $isLoggedIn)
+                LoginView(isLoggedIn: $isLoggedIn, dataFetcher: dataFetcher)
                     .tabItem {
                         Image(systemName: "person.crop.circle")
                         Text("Profile")
                     }
                     .tag(2)
             }
-            .background(Color.white)
-            .zIndex(3)
         }
     }
 }
@@ -195,6 +253,7 @@ struct ProductView: View {
                 .navigationTitle("Fakeazon")
             }
         }
+        .background(Color.gray)
     }
     
     func filteredProducts() -> [Product] {
@@ -222,8 +281,6 @@ struct BorderedProminentOrBordered: ButtonStyle {
     }
 }
 
-
-
 struct ProductRowView: View {
     let product: Product
 
@@ -247,8 +304,6 @@ struct ProductRowView: View {
         .padding(.vertical, 7)
     }
 }
-
-
 
 struct ProductDetailView: View {
     let product: Product
@@ -306,41 +361,73 @@ struct ProductDetailView: View {
 }
 
 
-
-
-
 struct CartView: View {
-    @StateObject var dataFetcher = DataFetcher()
-    
-//    @Binding var matchedUser: Bool
-    
+    @Binding var isLoggedIn: Bool
+    @Binding var matchedUser: Users?
+    @State private var cart: Cart?
+    @State private var productDetailsList: [ProductDetails] = []
+
     var body: some View {
-        NavigationView {
-//            if matchedUser {
-//                List(dataFetcher.products) { product in
-//                    NavigationLink(destination: ProductDetailView(product: product)) {
-//                        ProductRowView(product: product)
-//                    }
-//                }
-//                .onAppear {
-//                    dataFetcher.fetchProducts()
-//                }
-//                .navigationTitle("Cart")
-//            }
-            Text("Placeholder")
+        if isLoggedIn == false {
+            Text("Peasle logg in")
+        } else {
+            VStack {
+                if let cart = cart {
+                    Text("Cart ID: \(cart.id)")
+                    Text("User ID: \(cart.userId)")
+                    Text("Date: \(cart.date)")
+                    
+                    ForEach(productDetailsList, id: \.id) { product in
+                        VStack(alignment: .leading) {
+                            Text("Product ID: \(product.id)")
+                            Text("Title: \(product.title)")
+                            Text("Price: \(product.price)")
+                            Text("Description: \(product.description)")
+                            Text("Category: \(product.category)")
+                            Text("Image URL: \(product.image)")
+                            Text("Rating: \(product.rating.rate), Count: \(product.rating.count)")
+                            Text("Quantity: \(quantityForProduct(withId: product.id))")
+                            Divider()
+                        }
+                    }
+                } else {
+                    Text("Loading data...")
+                }
+            }
+            .onAppear {
+                if let userId = matchedUser?.id {
+                    print("Fetching cart data for user ID: \(userId)")
+                    dataFetcherCart.fetchData(userId: userId) { fetchedData in
+                        DispatchQueue.main.async {
+                            self.cart = fetchedData
+                            
+                            if let products = fetchedData?.products {
+                                for product in products {
+                                    dataFetcherCart.fetchProductData(productId: product.productId) { fetchedProduct in
+                                        DispatchQueue.main.async {
+                                            if let fetchedProduct = fetchedProduct {
+                                                self.productDetailsList.append(fetchedProduct)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    private func quantityForProduct(withId id: Int) -> Int {
+        return cart?.products.first(where: { $0.productId == id })?.quantity ?? 0
     }
 }
 
 
 
-
-
-
-
-
-
 struct LoginView: View {
+ 
     @Binding var isLoggedIn: Bool
     @StateObject var dataFetcher = DataFetcher()
     @State var username = ""
@@ -348,49 +435,54 @@ struct LoginView: View {
     @State var email = ""
     @State var users = [Users]()
     @State var showAlert = false
-    
     @State var matchedUser: Users?
-    
+     
     var body: some View {
         NavigationView {
             VStack(spacing: 16) {
+                HStack {
+                    Button(action: {
+                        username = "johnd"
+                        password = "m38rmF$"
+                    }) {
+                        Text("John")
+                    }
+                    Button(action: {
+                        username = "mor_2314"
+                        password = "83r5^_"
+                    }) {
+                        Text("Morrison")
+                    }
+                }
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Email or Username")
                         .font(.headline)
                     TextField("Enter your email or username", text: $username)
                         .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                VStack(alignment: .leading, spacing: 4) {
+                    
                     Text("Password")
                         .font(.headline)
                     SecureField("Enter your password", text: $password)
                         .autocapitalization(.none)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
+                
                 Text("m38rmF$")
                 
                 Text("Username: \(dataFetcher.users.first?.username ?? ""), Email: \(dataFetcher.users.first?.email ?? ""), Password: \(dataFetcher.users.first?.password ?? "")")
                 
                 Text("Username: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].username : ""), Email: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].email : ""), Password: \(dataFetcher.users.count > 1 ? dataFetcher.users[1].password : "")")
-
+                
                 Button(action: {
                     let matchingUsers = dataFetcher.users.filter { $0.username == username || $0.email == username }
-                    
                     if let matchedUser = matchingUsers.first, matchedUser.password == password {
                         isLoggedIn = true
                         self.matchedUser = matchedUser
                         username = ""
+                        password = ""
                     } else {
-                        let matchingEmail = dataFetcher.users.filter { $0.email == email }
-                        
-                        if let matchedEmailUser = matchingEmail.first, matchedEmailUser.password == password {
-                            isLoggedIn = true
-                            self.matchedUser = matchedEmailUser
-                            password = ""
-                        } else {
-                            self.showAlert = true
-                        }
+                        self.showAlert = true
                     }
                 }) {
                     Text(isLoggedIn ? "Logout" : "Login")
@@ -400,88 +492,50 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
+                
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Error"), message: Text("Incorrect Username/Email or Password"), dismissButton: .default(Text("OK")))
                 }
+                
                 if isLoggedIn {
                     NavigationLink(destination: ProfileView(isLoggedIn: $isLoggedIn, matchedUser: $matchedUser)) {
                         Text("Go to Profile")
                     }
                 }
-
-                
+                Text("johnd, and m38rmF$")
             }
             .padding(.horizontal, 24)
             .onAppear {
+                print("LoginView Appeared")
                 dataFetcher.fetchUsers()
+                print(dataFetcher)
+                print(dataFetcher.fetchUsers)
             }
         }
     }
 }
 
-
-
-
-//profile view
 struct ProfileView: View {
-    @StateObject var dataFetcher = DataFetcher()
     @Binding var isLoggedIn: Bool
     @Binding var matchedUser: Users?
     @State var showAlert = false
     
-    var user: Users?
-    
     var body: some View {
         NavigationView {
             VStack {
-                
-                HStack {
-                    Text(String(matchedUser?.id ?? 0))
-                    Button(action: {
-                        if isLoggedIn {
-                            self.isLoggedIn = false
-                        }
-                    }) {
-                        if isLoggedIn {
-                            Text("Logout")
-                        } else {
-                            Text("not logged in")
-                        }
-                    }
-                    .padding(.vertical, 13)
-                    .padding(.horizontal, 16)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .padding(.trailing, -30)
-                    
-                    if !isLoggedIn {
-                        NavigationLink(destination: {
-                            LoginView(isLoggedIn: $isLoggedIn)
-                        }) {
-                            EmptyView()
-                        }
-                    }
-                }
-                .padding(.leading, 227)
-                
-                Spacer()
-                
                 if isLoggedIn {
                     if let matchedUser = matchedUser {
                         displayUserInfo(for: matchedUser)
                     }
-                } else if let user = user {
-                    displayUserInfo(for: user)
                 } else {
-                    Text("erronus you aren't logged inn somehow...")
-                    //LoginView(isLoggedIn: $isLoggedIn, users: dataFetcher.users)
+                    Text("You are not logged in")
                 }
                 
                 Spacer()
             }
         }
     }
+    
     
     private func displayUserInfo(for user: Users) -> some View {
         List {
@@ -489,7 +543,8 @@ struct ProfileView: View {
                 if let name = user.name {
                     Text("\(name.firstname) \(name.lastname)")
                         .font(.largeTitle)
-                }
+                        .autocapitalization(.none)
+               }
                 Text("Email")
                     .font(.headline)
                 
@@ -499,15 +554,44 @@ struct ProfileView: View {
                 
                 Text("Location")
                     .font(.headline)
-                Spacer()
+                
+                Text(user.address?.city ?? "")
+                    .font(.body)
+                    .foregroundColor(.gray)
+                
+                Text("Street / Zipcode")
+                    .font(.headline)
+                
+                HStack {
+                    Text(user.address?.street ?? "")
+                        .font(.body)
+                        .foregroundColor(.gray)
+
+                    Text("\(user.address?.number ?? 0)")
+                        .font(.body)
+                        .foregroundColor(.gray)
+                    
+                    Text(user.address?.zipcode ?? "")
+                        .font(.body)
+                        .foregroundColor(.gray)
+                }
+                
+                Text("Phone")
+                    .font(.headline)
+                
+                Text(user.phone)
+                    .font(.body)
+                    .foregroundColor(.gray)
             }
         }
     }
 }
 
 
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(userId: 1)
     }
 }
+
