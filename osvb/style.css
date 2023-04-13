@@ -1,0 +1,101 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #5C5A55;
+}
+
+#sidebar {
+    background-color: #3E6C7D;
+    color: white;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    padding: 20px 0;
+}
+
+#sidebar h1 {
+    margin: 0;
+    padding: 0 20px;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    padding: 15px 20px;
+}
+
+#sidebar ul li:hover {
+    background-color: #0F516D;
+}
+
+#content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+#content h2 {
+    margin-top: 0;
+    color: #0C2D3D;
+}
+
+#content .block {
+    background-color: #3E7285;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+}
+
+.tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f2f2f2;
+    padding: 0.5rem;
+}
+
+.tab-button {
+    border: none;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid blue;
+}
+
+.tab-content {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}

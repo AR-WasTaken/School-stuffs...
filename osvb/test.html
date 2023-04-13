@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tab View Demo</title>
+    <style>
+      .tab-container {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+      }
+
+      .tab-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #f2f2f2;
+        padding: 0.5rem;
+      }
+
+      .tab-button {
+        border: none;
+        background-color: transparent;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .tab-button.active {
+        border-bottom: 2px solid blue;
+      }
+
+      .tab-content {
+        flex-grow: 1;
+        padding: 1rem;
+      }
+
+      .tab-pane {
+        display: none;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tab-container">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="tab1">Tab 1</button>
+        <button class="tab-button" data-tab="tab2">Tab 2</button>
+        <button class="tab-button" data-tab="tab3">Tab 3</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" data-tab="tab1">
+          <p>Tab 1 content goes here.</p>
+        </div>
+        <div class="tab-pane" data-tab="tab2">
+          <p>Tab 2 content goes here.</p>
+        </div>
+        <div class="tab-pane" data-tab="tab3">
+          <p>Tab 3 content goes here.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          const tabId = button.dataset.tab;
+
+          tabPanes.forEach((pane) => {
+            pane.classList.remove('active');
+          });
+
+          const selectedPane = document.querySelector(`[data-tab="${tabId}"]`);
+          selectedPane.classList.add('active');
+
+          tabButtons.forEach((button) => {
+            button.classList.remove('active');
+          });
+
+          button.classList.add('active');
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,356 +1,805 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2639
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
-{\colortbl;\red255\green255\blue255;\red202\green202\blue202;\red202\green202\blue202;}
-{\*\expandedcolortbl;;\cssrgb\c83137\c83137\c83137;\cssrgb\c83137\c83137\c83137;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+    <head>
 
-\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 <!-- Changed -->\
-<html>\
-<body>\
-                <div class="page__content">\
-\
-                    <style>\
-                        .container__aa \{\
-                            display: grid;\
-                            grid-template-columns: 1fr 1fr;\
-                            grid-template-rows: 0.4fr 1.6fr;\
-                            grid-auto-columns: 1fr;\
-                            gap: 0px 0px;\
-                            grid-auto-flow: row;\
-                            grid-template-areas: "attributes tools" "attributes display";\
-                        \}\
-                        \
-                        @media only screen and (max-width: 1128px) \{\
-                            .container__aa \{\
-                                display: grid;\
-                                grid-template-columns: 1fr 1fr;\
-                                grid-template-rows: 0.4fr 1.6fr;\
-                                grid-auto-columns: 1fr;\
-                                gap: 0px 0px;\
-                                grid-auto-flow: row;\
-                                grid-template-areas: "attributes tools" "attributes display";\
-                            \}\
-                        \}\
-                        \
-                        .tools \{\
-                            grid-area: tools;\
-                        \}\
-                        \
-                        .attributes \{\
-                            grid-area: attributes;\
-                        \}\
-                        \
-                        .display \{\
-                            grid-area: display;\
-                        \}\
-                        \
-                        .btn \{\
-                            border: 2px solid black;\
-                            background-color: white;\
-                            color: black;\
-                            padding: 7px 28px;\
-                            font-size: 16px;\
-                            cursor: pointer;\
-                            border-radius: 10px;\
-                        \}\
-                        \
-                        .dark \{\
-                            border-color: #0b1622;\
-                            color: #102840;\
-                        \}\
-                        \
-                        .dark:hover \{\
-                            background-color: #102840;\
-                            color: white;\
-                        \}\
-                    </style>\
-\
-\
-\
-                    <div class="container container__aa">\
-                        <div class="tools" style="margin-left: 20px;">\
-                            <form>\
-                                <br>\
-                                <button class="btn dark" type="submit" onclick="focusMainField(); addPerson(); showNames();">Add Person</button>\
-                                <br><br>\
-                                <button class="btn dark" type="submit" onclick="groupPeople();">Group People</button>\
-\
-                                <br><br><br>\
-                                <button class="btn dark" type="submit" onclick="clearLocalStorage();">Remove The Names</button>\
-                            </form>\
-                        </div>\
-\
-                        <div class="attributes">\
-                            <form id="add-person">\
-                                <label for="name">Name:</label>\
-                                <input class="btn" type="text" id="name" name="name" style="cursor: text;" onload="focusMainField();"><br><br>\
-                                \
-                                <label for="gender">Gender:</label>\
-                                <select class="btn dark" id="gender" name="gender">\
-                                    <option value=""></option>\
-                                    <option value="male">Male</option>\
-                                    <option value="female">Female</option>\
-                                </select><br><br>\
-                                \
-                                <label for="id">ID:</label>\
-                                <input class="btn" type="number" id="id" name="id"><br><br>\
-                                \
-                                \
-                            </form>\
-\
-                            <br><br><br>\
-\
-                            <span id="people-span"></span>\
-                                                       \
-                        </div>\
-                    </div>\
-\
-\
-                </div>\
-\
-                <script type="text/javascript">\
-                    // focus main field\
-                    function focusMainField () \{\
-                        if (document.getElementById("name").value === "") \{\
-                            document.getElementById("name").focus();\
-                        \}\
-                    \}\
-                    \
-                    let people = [];\
-\
-                    const storedData = localStorage.getItem('people');\
-                    if (storedData) \{\
-                    people = JSON.parse(storedData);\
-                    \}\
-\
-                    const form = document.querySelector('#add-person');\
-                    form.addEventListener('submit', addPerson);\
-\
-                    function addPerson(event) \{\
-                        let formId = parseInt(localStorage.getItem('formId')) || 1;\
-\
-                        const id = formId;\
-                        formId++;\
-                        localStorage.setItem('formId', formId.toString());\
-\
-                        const name = document.querySelector('#name').value;\
-                        const gender = document.querySelector('#gender').value;\
-\
-                        const newPerson = \{ name, gender, id \};\
-\
-                        people.push(newPerson);\
-\
-                        localStorage.setItem('people', JSON.stringify(people));\
-\
-                        name.value = '';\
-                        gender.value = '';\
-                        id.value = '';\
-                    \}\
-\
-                    const peopleSpan = document.querySelector('#people-span');\
-\
-                        for (let i = 0; i < people.length; i++) \{\
-                        names += people[i].name + ', ';\
-                        \}\
-                        \
-                        names = names.slice(0, -2);\
-\
-                        peopleSpan.textContent = names;\
-\
-                    function showNames() \{\
-                        event.preventDefault();\
-                        const peopleSpan = document.querySelector('#people-span');\
-\
-                        let names = '';\
-                        for (let i = 0; i < people.length; i++) \{\
-                        names += people[i].name + ', ';\
-                        \}\
-                        \
-                        names = names.slice(0, -2);\
-\
-                        peopleSpan.textContent = names;\
-                    \}\
-                    \
-                    function clearLocalStorage() \{\
-                        localStorage.clear();\
-                        people = [];\
-                        location.reload();\
-                    \}\
-\
-                    function sortGroups() \{\
-                        const male = [], female = [], groups = [];\
-\
-                        // Separate people into male and female arrays\
-                        for (const person of people) \{\
-                            if (person.gender === 'male') \{\
-                                male.push(person);\
-                            \} else if (person.gender === 'female') \{\
-                                female.push(person);\
-                            \}\
-                        \}\
-\
-                        // Create male groups\
-                        while (male.length >= 4) \{\
-                            groups.push(male.splice(0, 4));\
-                        \}\
-\
-                        // Create female groups\
-                        while (female.length >= 4) \{\
-                            groups.push(female.splice(0, 4));\
-                        \}\
-\
-                        // Create mixed groups\
-                        while (male.length >= 2 && female.length >= 2) \{\
-                            const mixedGroup = male.splice(0, 2).concat(female.splice(0, 2));\
-                            groups.push(mixedGroup);\
-                        \}\
-\
-                        return groups;\
-                    \}\
-\
-\
-                    \
-                    \
-\
-\
-            \
-            \
-            \
-            \
-            \
-            \
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-                    \
-            \
-            \
-            \
-            \
-                    // var arrayMann = new Array();\
-                    // var arrayKvinne = new Array();\
-\
-                    // // plasser input inn i mannArray\
-                    // function mann() \{\
-                    //     var name = document.getElementById('enteredName').value;\
-                    //     if (!(typeof name === 'undefined') && name != null && name.trim() != '') \{\
-                    //         arrayMann.push(name);\
-                    //     \}\
-\
-                    //     document.getElementById('enteredName').value = '';\
-                    //     document.getElementById('printMann').innerHTML = arrayMann;\
-\
-                    //     if (document.getElementById("enteredName").value === "") \{\
-                    //         document.getElementById("enteredName").focus();\
-                    //     \}\
-                    // \}\
-\
-                    // // plasser input inn i kvinneArray\
-                    // function kvinne() \{\
-                    //     var name = document.getElementById('enteredName').value;\
-                    //     if (!(typeof name === 'undefined') && name != null && name.trim() != '') \{\
-                    //         arrayKvinne.push(name);\
-                    //     \}\
-\
-                    //     document.getElementById('enteredName').value = '';\
-                    //     document.getElementById('printKvinne').innerHTML = arrayKvinne;\
-\
-                    //     if (document.getElementById("enteredName").value === "") \{\
-                    //         document.getElementById("enteredName").focus();\
-                    //     \}\
-                    // \}\
-\
-                    // // shuffle mannArray\
-                    // function mannScramble(arrayMann) \{\
-                    //     const array = arrayMann;\
-                    //     const arrayMannShuffle = array.sort((a, b) => 0.5 - Math.random());\
-\
-                    //     document.getElementById('printMann').innerHTML = arrayMannShuffle;\
-\
-                    //     var arrayMann = arrayMannShuffle\
-                    // \}\
-\
-                    // // shuffle mannArray\
-                    // function kvinneScramble(arrayKvinne) \{\
-                    //     const array = arrayKvinne;\
-                    //     const arrayKvinneShuffle = array.sort((a, b) => 0.5 - Math.random());\
-\
-                    //     document.getElementById('printKvinne').innerHTML = arrayKvinneShuffle;\
-\
-                    //     var arrayKvinne = arrayKvinneShuffle\
-                    // \}\
-\
-                    // function reset_all_entries() \{\
-                    //     document.getElementById('printMann').innerHTML = '';\
-                    //     document.getElementById('printKvinne').innerHTML = '';\
-\
-                    //     while (arrayMann.length > 0 || arrayKvinne > 0) \{\
-                    //         arrayMann.pop();\
-                    //         arrayKvinne.pop();\
-                    //     \}\
-                    // \}\
-\
-                    // function add_array_to_to_fields() \{\
-\
-                    //     document.getElementById('BANE_1_LAG_1_DELTAKER_1').innerHTML = arrayMann[0];\
-                    //     document.getElementById('BANE_1_LAG_1_DELTAKER_2').innerHTML = arrayMann[1];\
-                    //     document.getElementById('BANE_1_LAG_2_DELTAKER_1').innerHTML = arrayMann[2];\
-                    //     document.getElementById('BANE_1_LAG_2_DELTAKER_2').innerHTML = arrayMann[3];\
-\
-                    //     document.getElementById('BANE_2_LAG_1_DELTAKER_1').innerHTML = arrayMann[4];\
-                    //     document.getElementById('BANE_2_LAG_1_DELTAKER_2').innerHTML = arrayMann[5];\
-                    //     document.getElementById('BANE_2_LAG_2_DELTAKER_1').innerHTML = arrayMann[6];\
-                    //     document.getElementById('BANE_2_LAG_2_DELTAKER_2').innerHTML = arrayMann[7];\
-\
-                    //     document.getElementById('BANE_3_LAG_1_DELTAKER_1').innerHTML = arrayKvinne[0];\
-                    //     document.getElementById('BANE_3_LAG_1_DELTAKER_2').innerHTML = arrayKvinne[1];\
-                    //     document.getElementById('BANE_3_LAG_2_DELTAKER_1').innerHTML = arrayKvinne[2];\
-                    //     document.getElementById('BANE_3_LAG_2_DELTAKER_2').innerHTML = arrayKvinne[3];\
-\
-                    //     document.getElementById('BANE_4_LAG_1_DELTAKER_1').innerHTML = arrayKvinne[4];\
-                    //     document.getElementById('BANE_4_LAG_1_DELTAKER_2').innerHTML = arrayKvinne[5];\
-                    //     document.getElementById('BANE_4_LAG_2_DELTAKER_1').innerHTML = arrayKvinne[6];\
-                    //     document.getElementById('BANE_4_LAG_2_DELTAKER_2').innerHTML = arrayKvinne[7];\
-\
-                    // \}\
-                </script>\
-\
-                <!-- <form id="myForm">\
-                                /action_page.php\
-                                <label for="name">Deltaker Navn: </label> <input type="text" class="btn" id="enteredName" name="getNameValue" /><br>\
-                                <input type="button" class="btn green" value="mann" onclick="mann();">\
-                                <input type="button" class="btn green" value="kvinne" onclick="kvinne();">\
-                                <br><br>\
-                                <button type="button" class="btn green" onclick="mannScramble(arrayMann); kvinneScramble(arrayKvinne);">scramble arrays</button>\
-                                <br>\
-                                <button type="button" class="btn green" onclick="add_array_to_to_fields();">add to field</button>\
-                                <br>\
-                                <button type="button" class="btn green" onclick="reset_all_entries();">Clear Entries</button>\
-                                <button type="submit"></button>\
-                            </form> -->\
-\
-                            <!-- <span id="printMann"></span>\
-                            <span id="printKvinne"></span> -->\
-\
-\
-\
-\
-\
-    </div>\
-\pard\pardeftab720\partightenfactor0
-\cf3 \outl0\strokewidth0 <body>\cf3 \
-<html>\
-\pard\pardeftab720\partightenfactor0
-\cf2 \outl0\strokewidth0 \strokec2 \
-\pard\pardeftab720\partightenfactor0
-\cf2     <!-- end of changed -->}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sand Volleyball Club Admin</title>
+        <link rel="stylesheet" href="style.css">
+
+        <style>
+
+
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-image: url("MWNjN2VlOWUtYjAxOC00YWEzLTk0ZjAtNmM3MDNiMjI2NjcxL2ltYWdlcy9udC1tYXN0ZXJzLWxsLTI1LmpwZw==.jpeg");
+                background-size: cover;
+            }
+
+            #sidebar {
+                background-color: rgba(0, 0, 0, 0.7); /*3E6C7D*/
+                color: white;
+                width: 180px;
+                height: 100vh;
+                position: fixed;
+                padding: 20px 0;
+            }
+
+            #sidebar h1 {
+                margin: 0;
+                padding: 0 20px;
+                font-size: 24px;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            #sidebar ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            #sidebar ul li {
+                padding: 15px 20px;
+            }
+
+            #sidebar ul li:hover {
+                background-color: #0F516D;
+            }
+
+            #content {
+                margin-left: 180px;
+                padding: 20px;
+            }
+
+            #content h2 {
+                margin-top: 0;
+                color: rgba(255, 255, 255, 0.87); /*0C2D3D*/
+            }
+
+            #content .block {
+                background-color: rgba(0, 0, 0, 0.7); /*3E7285*/
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                color: white;
+            }
+
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+
+
+            .tab-container {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+            }
+
+            .tab-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                background-color: #f2f2f2;
+                padding: 0.5rem;
+            }
+
+            .tab-button {
+                border: none;
+                background-color: transparent;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-weight: bold;
+                color: #ddd;
+            }
+
+            .tab-button.active {
+                border-bottom: 2px solid white;
+            }
+
+            .tab-content {
+                flex-grow: 1;
+                padding: 1rem;
+            }
+
+            .tab-pane {
+                display: none;
+            }
+
+            .tab-pane.active {
+                display: block;
+            }
+
+        </style>
+
+    </head>
+    <body>
+    
+        <div id="sidebar">
+            <h1>Admin</h1>
+                <ul>
+                    <li>
+                        <button class="tab-button active" data-tab="tab1">Registrering</button>
+                    </li>
+                    <li>
+                        <button class="tab-button" data-tab="tab2">Deltakere</button>
+                    </li>
+                    <li>
+                        <button class="tab-button" data-tab="tab3">Turneringer</button>
+                    </li>
+                    <li>
+                        <button class="tab-button" data-tab="tab4">Sesong</button>
+                    </li>
+                <li>Settings</li>
+            </ul>
+        </div>
+    
+        <div id="content">
+            <!-- <h2>Dashboard</h2> -->
+            <div class="block">
+                <div class="tab-content">
+                    <div class="tab-pane active" data-tab-target="tab1">
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- Registrering tabview css + html + js -->
+                        <style>
+                            .container__aa {
+                                display: grid;
+                                grid-template-columns: 5fr 4fr;
+                                grid-template-rows: 1fr 1fr;
+                                grid-auto-columns: 1fr;
+                                gap: 0px 0px;
+                                grid-auto-flow: row;
+                                grid-template-areas: "people tournaments"
+                                                    "add-people add-tournaments"
+                                                    "display-people display-tournaments";
+                            }
+
+                            @media only screen and (max-width: 1128px) {
+                                .container__aa {
+                                    display: grid;
+                                    grid-template-columns: 5fr 4fr;
+                                    grid-template-rows: 1fr 1fr;
+                                    grid-auto-columns: 1fr;
+                                    gap: 0px 0px;
+                                    grid-auto-flow: row;
+                                    grid-template-areas: "people"
+                                                        "add-people"
+                                                        "display-people"
+                                                        "tournaments"
+                                                        "add-tournaments"
+                                                        "display-tournaments";
+                                }
+                            }
+
+                            
+                            .people {
+                                grid-area: people;
+                            }
+                            
+                            .tournaments {
+                                grid-area: tournaments;
+                                margin-left: 20px;
+                            }
+
+                            .add-people {
+                                grid-area: add-people;
+                            }
+
+                            .add-tournaments {
+                                grid-area: add-tournaments;
+                                margin-left: 20px;
+                            }
+
+                            .display-people {
+                                grid-area: display-people;
+                            }
+                            
+                            .display-tournaments {
+                                grid-area: display-tournaments;
+                                margin-left: 20px;
+                            }
+
+
+
+                            
+                            .btn {
+                                border: 2px solid black;
+                                background-color: white;
+                                color: black;
+                                padding: 7px 28px;
+                                font-size: 16px;
+                                cursor: pointer;
+                                border-radius: 10px;
+                            }
+                            
+                            .dark {
+                                border-color: #0b1622;
+                                color: #102840;
+                            }
+                            
+                            .dark:hover {
+                                background-color: #102840;
+                                color: white;
+                            }
+    
+    
+    
+                            .gender-btn {
+                                border: 2px solid #102840;
+                                background-color: white;
+                                color: black;
+                                padding: 7px 14px;
+                                font-size: 16px;
+                                cursor: pointer;
+                                border-radius: 10px;
+                                margin: 4px 4px;
+                            }
+    
+                            .gender-btn.selected {
+                                border: 2px solid #102840;
+                                background-color: #102840;
+                                color: white;
+                            }
+
+                            .location-dropdown {
+                                border: 2px solid #102840;
+                                background-color: white;
+                                color: black;
+                                padding: 7px 14px;
+                                font-size: 16px;
+                                cursor: pointer;
+                                border-radius: 10px;
+                            }
+    
+    
+                        </style>
+                        
+                        <div class="container container__aa">
+                            <div class="tournaments">
+                                <h2>Legg til turnering</h2>
+                                <form id="add-tournament">
+                                    <label for="location">Location:</label>
+                                    <input class="btn" type="text" id="location" name="location" style="cursor: text;">
+                                    <!-- <select class="location-dropdown" id="location" name="location">
+                                        <option value="location1">Location 1</option>
+                                        <option value="location2">Location 2</option>
+                                    </select> -->
+                                    
+                                    <br><br>
+                            
+                                    <label for="time">Time:</label>
+                                    <input class="btn" type="time" id="time" name="time" style="cursor: text;"><br><br>
+                            
+                                    <label for="date">Date:</label>
+                                    <input class="btn" type="date" id="date" name="date" style="cursor: text;"><br><br>
+                                </form>
+                            </div>
+
+                            <div class="people" style="margin-left: 20px;">
+                                <h2>Legg til person</h2>
+                                <form id="add-person">
+                                    <label for="name">Name:</label>
+                                    <input class="btn" type="text" id="name" name="name" style="cursor: text;"><br><br>
+                                    
+                                    <label for="gender">Gender:</label>
+                                    <select class="btn dark" id="gender" name="gender">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+
+                                    <br><br>
+                                    
+                                    <label for="confirmed">Deltakeren har godkjent at personopplysningene kan oppevares hos osvb</label>
+                                    <button>✓</button>
+
+                                    <br><br>
+                                    <!--<label for="id">ID:</label>-->
+                                    <input class="btn" type="hidden" id="id" name="id">
+                                </form>                    
+                            </div>
+                            <div class="add-people" style="margin-left: 20px;">
+                                <form>
+                                    <button class="btn dark" type="button" id="add-person-btn">Legg til person</button>
+                                    <br><br>
+                                    <button class="btn dark" type="button" id="clear-people-storage-btn">Fjern alle registrerte</button>
+                                </form>
+                            </div>
+
+                            <div class="add-tournaments">
+                                <form>
+                                    <button class="btn dark" type="button" id="add-tournament-btn">Legg til turnering</button>
+                                    <br><br>
+                                    <button class="btn dark" type="button" id="clear-tournament-storage-btn">Fjern alle turneringer</button>
+                                </form>
+                            </div>
+                            
+                            <div class="display-people" style="margin-left: 20px;">
+                                <div id="people-container"></div>
+                            </div>
+
+                            <div class="display-tournaments">
+                                <div id="tournament-container"></div> 
+                            </div>
+                            <br>
+
+                            
+                        </div>
+                        <button class="btn dark" id="clear-data-localStorage">Fjern all data</button>
+                    </div>
+    
+                    <script type="text/javascript"> 
+    
+                        // added for compatibility with microsoft edge, which doesn't support the "onload", or the "onclick" attribute for buttons. 
+
+                        addEventListener('DOMContentLoaded', () => {
+                            focusMainField();
+                            showNames();
+                            showTournaments();
+                        });
+
+                        // focuses the main field when the page loads or a new person is added
+                        function focusMainField () {
+                            document.getElementById("name").focus();
+                        }
+                        
+                        let people = [];
+                        const storedPeople = localStorage.getItem('people');
+                        if (storedPeople) {
+                            people = JSON.parse(storedPeople);
+                        }
+
+                        document.getElementById('add-person-btn').addEventListener('click', () => {
+                            focusMainField();
+                            addPerson();
+                            showNames();
+                        });
+
+                        function addPerson() {
+                            let formId = parseInt(localStorage.getItem('formId')) || 1;
+    
+                            const id = formId;
+                            formId++;
+                            localStorage.setItem('formId', formId.toString());
+
+                            const name = document.querySelector('#name').value;
+                            const gender = document.querySelector('#gender').value;
+                            
+                            const coming = null
+
+                            const newPerson = { name, gender, id, coming};
+    
+                            people.push(newPerson);
+    
+                            localStorage.setItem('people', JSON.stringify(people));
+    
+                            document.querySelector('#name').value = '';
+                        }
+    
+                        document.getElementById('clear-people-storage-btn').addEventListener('click', clearPeopleStorage);
+                        // removes the "people" array from local storage
+                        function clearPeopleStorage() {
+                            localStorage.removeItem('people');
+                            localStorage.removeItem('formId');
+                            people = [];
+                            showNames();
+                        } // FIXME: this function doesn't work
+    
+                        function sortGroups() {
+                            const male = [], female = [], groups = [];
+    
+                            // Separate people into male and female arrays
+                            for (const person of people) {
+                                if (person.gender === 'male') {
+                                    male.push(person);
+                                } else if (person.gender === 'female') {
+                                    female.push(person);
+                                }
+                            }
+    
+                            // Create male groups
+                            while (male.length >= 4) {
+                                groups.push(male.splice(0, 4));
+                            }
+    
+                            // Create female groups
+                            while (female.length >= 4) {
+                                groups.push(female.splice(0, 4));
+                            }
+    
+                            // Create mixed groups
+                            while (male.length >= 2 && female.length >= 2) {
+                                const mixedGroup = male.splice(0, 2).concat(female.splice(0, 2));
+                                groups.push(mixedGroup);
+                            }
+    
+                            return groups;
+                        }
+
+                        function showNames() {
+                            const peopleContainer = document.querySelector('#people-container');
+
+                            peopleContainer.innerHTML = '';
+                            const peopleList = document.createElement('ul');
+
+                            for (let i = 0; i < people.length; i++) {
+                                const person = people[i];
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `Navn: ${person.name}, Gender: ${person.gender}, ID: ${person.id}`;
+
+                                const removeButton = document.createElement('button');
+                                removeButton.textContent = 'Remove';
+                                removeButton.addEventListener('click', () => {
+                                    removePerson(person.id);
+                                });
+
+                                listItem.appendChild(removeButton);
+                                peopleList.appendChild(listItem);
+                            }
+
+                            peopleContainer.appendChild(peopleList);
+                        }
+
+                        function removePerson(personId) {
+                            people = people.filter(person => person.id !== personId);
+                            localStorage.setItem('people', JSON.stringify(people));
+                            showNames();
+                        }
+
+
+
+
+                        // Turnaments
+
+
+                        // Initialize the tournaments array
+                        let tournaments = [];
+                        const storedTournaments = localStorage.getItem('tournaments');
+                        if (storedTournaments) {
+                            tournaments = JSON.parse(storedTournaments);
+                        }
+
+                        // Update the "Legg til turnering" button event listener
+                        document.getElementById('add-tournament-btn').addEventListener('click', () => {
+                            addTournament();
+                            showTournaments();
+                        });
+
+                        // Update the "Fjern alle turneringer" button event listener
+                        document.getElementById('clear-tournament-storage-btn').addEventListener('click', clearTournamentStorage);
+
+
+                        function focusTournamentField () {
+                            document.getElementById("location").focus();
+                        }
+
+                        // Add a new tournament
+                        function addTournament() {
+                            const location = document.querySelector('#location').value;
+                            const time = document.querySelector('#time').value;
+                            const date = document.querySelector('#date').value;
+
+                            const newTournament = { location, time, date };
+
+                            tournaments.push(newTournament);
+
+                            localStorage.setItem('tournaments', JSON.stringify(tournaments));
+
+                            focusTournamentField();
+                        }
+
+                        // Clear the tournaments from localStorage
+                        function clearTournamentStorage() {
+                            localStorage.removeItem('tournaments');
+                            tournaments = [];
+                            showTournaments();
+                        }
+
+                        // Display the tournaments
+                        function showTournaments() {
+                            const tournamentContainer = document.querySelector('#tournament-container');
+
+                            tournamentContainer.innerHTML = '';
+                            const tournamentList = document.createElement('ul');
+
+                            for (let i = 0; i < tournaments.length; i++) {
+                                const tournament = tournaments[i];
+                                const listItem = document.createElement('li');
+                                listItem.textContent = `Location: ${tournament.location}, Time: ${tournament.time}, Date: ${tournament.date}`;
+
+                                const removeButton = document.createElement('button');
+                                removeButton.textContent = 'Remove';
+                                removeButton.addEventListener('click', () => {
+                                    removeTournament(i);
+                                });
+
+                                listItem.appendChild(removeButton);
+                                tournamentList.appendChild(listItem);
+                            }
+
+                            tournamentContainer.appendChild(tournamentList);
+                        }
+
+                        function removeTournament(tournamentIndex) {
+                            tournaments.splice(tournamentIndex, 1);
+                            localStorage.setItem('tournaments', JSON.stringify(tournaments));
+                            showTournaments();
+                        }
+
+
+
+
+
+                        // clear all data from local storage
+                        document.getElementById('clear-data-localStorage').addEventListener('click', () => {
+                            clearLocalStorage();
+                        });
+
+                        function clearLocalStorage() {
+                            localStorage.clear();
+                            location.reload();
+                        }
+
+                    </script>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+
+
+
+                    <div class="tab-pane" data-tab-target="tab2">
+
+
+                         <!-- Registrering tabview css + html + js -->
+
+                         <style>
+                            .container__bb {
+                                display: grid;
+                                grid-template-columns: 1fr 1fr 1fr;
+                                grid-template-rows: 1fr;
+                                grid-auto-columns: 1fr;
+                                gap: 0px 0px;
+                                grid-auto-flow: row;
+                                grid-template-areas: "male female tournament-information";
+                            }
+
+                            .male {
+                                grid-area: male;
+                            }
+
+                            .female {
+                                grid-area: female;
+                                margin-left: 20px;
+                            }
+
+                            .tournament-information {
+                                grid-area: tournament-information;
+                                margin-left: 20px;
+                            }
+
+                            /* Add flexbox container styles */
+                            .people-container {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 0px;
+                                width: 100%;
+                            }
+
+                            .person {
+                                flex: 0 0 auto;
+                                flex-grow: 1;
+                                border: 1px solid #ccc;
+                                padding: 10px;
+                                margin-bottom: 10px;
+                                width: 94%;
+                            }
+
+                            .person button {
+                                width: 24px;
+                                height: 24px;
+                                margin-right: 5px;
+                            }
+
+                        </style>
+
+                        <div class="container__bb">
+
+                            <div class="male">
+                                <div id="male-people-container">
+                                    <h3>Male</h3>
+                                </div>
+                            </div>
+
+                            <div class="female">
+                                <div id="female-people-container">
+                                    <h3>Female</h3>
+                                </div>
+                            </div>
+
+                            <div class="tournament-information">
+                                <div id="">
+                                    <h3>Turneringsinformasjon</h3>
+                                </div>
+                                
+                            </div>
+
+                                <!-- <div id="all-people-container">
+                                    <h3>All People</h3>
+                                </div> -->
+                            </div>
+                        </div>
+                        
+
+
+                    <script>
+
+                        function toggleAttendance(id) {
+                            const storedPeople = localStorage.getItem('people');
+                            const people = storedPeople ? JSON.parse(storedPeople) : [];
+
+                            const personIndex = people.findIndex(p => p.id === id);
+                            if (personIndex !== -1) {
+                                people[personIndex].coming = !people[personIndex].coming;
+                                localStorage.setItem('people', JSON.stringify(people));
+                            }
+                        }
+
+
+                        function showPeopleByGender() {
+                            const storedPeople = localStorage.getItem('people');
+                            const people = storedPeople ? JSON.parse(storedPeople) : [];
+
+                            const malePeopleContainer = document.querySelector('#male-people-container');
+                            const femalePeopleContainer = document.querySelector('#female-people-container');
+
+                            malePeopleContainer.innerHTML = '<h3>Male</h3>';
+                            femalePeopleContainer.innerHTML = '<h3>Female</h3>';
+
+                            const malePeopleList = document.createElement('div');
+                            malePeopleList.classList.add('people-container');
+                            const femalePeopleList = document.createElement('div');
+                            femalePeopleList.classList.add('people-container');
+
+                            for (let i = 0; i < people.length; i++) {
+                                const person = people[i];
+                                const personDiv = document.createElement('div');
+                                personDiv.classList.add('person');
+
+                                const attendanceButton = document.createElement('button');
+                                attendanceButton.addEventListener('click', () => {
+                                    toggleAttendance(person.id);
+                                    person.coming = !person.coming;
+                                    attendanceButton.innerHTML = person.coming ? '&#10003;' : '';
+                                });
+
+
+                                personDiv.appendChild(attendanceButton);
+                                personDiv.appendChild(document.createTextNode(person.name));
+
+                                if (person.gender === 'male') {
+                                    malePeopleList.appendChild(personDiv);
+                                } else if (person.gender === 'female') {
+                                    femalePeopleList.appendChild(personDiv);
+                                }
+                            }
+
+                            malePeopleContainer.appendChild(malePeopleList);
+                            femalePeopleContainer.appendChild(femalePeopleList);
+                        }
+
+                        document.addEventListener('DOMContentLoaded', showPeopleByGender);
+
+
+                        // Call the showPeopleByGender function when the page loads
+                        document.addEventListener('DOMContentLoaded', showPeopleByGender);
+
+
+                    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                    <div class="tab-pane" data-tab-target="tab3">
+                        <p>Tab 3 content goes here.</p>
+                    </div>
+                    <div class="tab-pane" data-tab-target="tab4">
+                        <p>Tab 4 content goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            const tabButtons = document.querySelectorAll(".tab-button");
+            const tabPanes = document.querySelectorAll(".tab-pane");
+    
+            tabButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+    
+                const tabId = button.dataset.tab;
+    
+                tabPanes.forEach((pane) => {
+                pane.classList.remove("active");
+                });
+    
+                const selectedPane = document.querySelector(
+                `[data-tab-target="${tabId}"]`
+                );
+                selectedPane.classList.add("active");
+    
+                tabButtons.forEach((button) => {
+                button.classList.remove("active");
+                });
+    
+                button.classList.add("active");
+            });
+            });
+        </script>
+    </body>
+</html>
