@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		174E2D4E29B0BDC20027379A /* _3_02_API_med_KnappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E2D4D29B0BDC20027379A /* _3_02_API_med_KnappApp.swift */; };
+		174E2D5029B0BDC20027379A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E2D4F29B0BDC20027379A /* ContentView.swift */; };
+		174E2D5229B0BDC30027379A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 174E2D5129B0BDC30027379A /* Assets.xcassets */; };
+		174E2D5529B0BDC30027379A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 174E2D5429B0BDC30027379A /* Preview Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		174E2D5B29B0BDC30027379A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 174E2D4229B0BDC20027379A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 174E2D4929B0BDC20027379A;
+			remoteInfo = "03.02 API med Knapp";
+		};
+		174E2D6529B0BDC30027379A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 174E2D4229B0BDC20027379A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 174E2D4929B0BDC20027379A;
+			remoteInfo = "03.02 API med Knapp";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		174E2D4A29B0BDC20027379A /* 03.02 API med Knapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "03.02 API med Knapp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		174E2D4D29B0BDC20027379A /* _3_02_API_med_KnappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _3_02_API_med_KnappApp.swift; sourceTree = "<group>"; };
+		174E2D4F29B0BDC20027379A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		174E2D5129B0BDC30027379A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		174E2D5429B0BDC30027379A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		174E2D5A29B0BDC30027379A /* 03.02 API med KnappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "03.02 API med KnappTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		174E2D6429B0BDC30027379A /* 03.02 API med KnappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "03.02 API med KnappUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		174E2D4729B0BDC20027379A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D5729B0BDC30027379A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D6129B0BDC30027379A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		174E2D4129B0BDC20027379A = {
+			isa = PBXGroup;
+			children = (
+				174E2D4C29B0BDC20027379A /* 03.02 API med Knapp */,
+				174E2D4B29B0BDC20027379A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		174E2D4B29B0BDC20027379A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				174E2D4A29B0BDC20027379A /* 03.02 API med Knapp.app */,
+				174E2D5A29B0BDC30027379A /* 03.02 API med KnappTests.xctest */,
+				174E2D6429B0BDC30027379A /* 03.02 API med KnappUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		174E2D4C29B0BDC20027379A /* 03.02 API med Knapp */ = {
+			isa = PBXGroup;
+			children = (
+				174E2D4D29B0BDC20027379A /* _3_02_API_med_KnappApp.swift */,
+				174E2D4F29B0BDC20027379A /* ContentView.swift */,
+				174E2D5129B0BDC30027379A /* Assets.xcassets */,
+				174E2D5329B0BDC30027379A /* Preview Content */,
+			);
+			path = "03.02 API med Knapp";
+			sourceTree = "<group>";
+		};
+		174E2D5329B0BDC30027379A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				174E2D5429B0BDC30027379A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		174E2D4929B0BDC20027379A /* 03.02 API med Knapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 174E2D6E29B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med Knapp" */;
+			buildPhases = (
+				174E2D4629B0BDC20027379A /* Sources */,
+				174E2D4729B0BDC20027379A /* Frameworks */,
+				174E2D4829B0BDC20027379A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "03.02 API med Knapp";
+			productName = "03.02 API med Knapp";
+			productReference = 174E2D4A29B0BDC20027379A /* 03.02 API med Knapp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		174E2D5929B0BDC30027379A /* 03.02 API med KnappTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 174E2D7129B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med KnappTests" */;
+			buildPhases = (
+				174E2D5629B0BDC30027379A /* Sources */,
+				174E2D5729B0BDC30027379A /* Frameworks */,
+				174E2D5829B0BDC30027379A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				174E2D5C29B0BDC30027379A /* PBXTargetDependency */,
+			);
+			name = "03.02 API med KnappTests";
+			productName = "03.02 API med KnappTests";
+			productReference = 174E2D5A29B0BDC30027379A /* 03.02 API med KnappTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		174E2D6329B0BDC30027379A /* 03.02 API med KnappUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 174E2D7429B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med KnappUITests" */;
+			buildPhases = (
+				174E2D6029B0BDC30027379A /* Sources */,
+				174E2D6129B0BDC30027379A /* Frameworks */,
+				174E2D6229B0BDC30027379A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				174E2D6629B0BDC30027379A /* PBXTargetDependency */,
+			);
+			name = "03.02 API med KnappUITests";
+			productName = "03.02 API med KnappUITests";
+			productReference = 174E2D6429B0BDC30027379A /* 03.02 API med KnappUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		174E2D4229B0BDC20027379A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					174E2D4929B0BDC20027379A = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					174E2D5929B0BDC30027379A = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 174E2D4929B0BDC20027379A;
+					};
+					174E2D6329B0BDC30027379A = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 174E2D4929B0BDC20027379A;
+					};
+				};
+			};
+			buildConfigurationList = 174E2D4529B0BDC20027379A /* Build configuration list for PBXProject "03.02 API med Knapp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 174E2D4129B0BDC20027379A;
+			productRefGroup = 174E2D4B29B0BDC20027379A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				174E2D4929B0BDC20027379A /* 03.02 API med Knapp */,
+				174E2D5929B0BDC30027379A /* 03.02 API med KnappTests */,
+				174E2D6329B0BDC30027379A /* 03.02 API med KnappUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		174E2D4829B0BDC20027379A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				174E2D5529B0BDC30027379A /* Preview Assets.xcassets in Resources */,
+				174E2D5229B0BDC30027379A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D5829B0BDC30027379A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D6229B0BDC30027379A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		174E2D4629B0BDC20027379A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				174E2D5029B0BDC20027379A /* ContentView.swift in Sources */,
+				174E2D4E29B0BDC20027379A /* _3_02_API_med_KnappApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D5629B0BDC30027379A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		174E2D6029B0BDC30027379A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		174E2D5C29B0BDC30027379A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 174E2D4929B0BDC20027379A /* 03.02 API med Knapp */;
+			targetProxy = 174E2D5B29B0BDC30027379A /* PBXContainerItemProxy */;
+		};
+		174E2D6629B0BDC30027379A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 174E2D4929B0BDC20027379A /* 03.02 API med Knapp */;
+			targetProxy = 174E2D6529B0BDC30027379A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		174E2D6C29B0BDC30027379A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		174E2D6D29B0BDC30027379A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		174E2D6F29B0BDC30027379A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"03.02 API med Knapp/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-Knapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		174E2D7029B0BDC30027379A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"03.02 API med Knapp/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-Knapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		174E2D7229B0BDC30027379A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-KnappTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/03.02 API med Knapp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/03.02 API med Knapp";
+			};
+			name = Debug;
+		};
+		174E2D7329B0BDC30027379A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-KnappTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/03.02 API med Knapp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/03.02 API med Knapp";
+			};
+			name = Release;
+		};
+		174E2D7529B0BDC30027379A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-KnappUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "03.02 API med Knapp";
+			};
+			name = Debug;
+		};
+		174E2D7629B0BDC30027379A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Max.-3-02-API-med-KnappUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "03.02 API med Knapp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		174E2D4529B0BDC20027379A /* Build configuration list for PBXProject "03.02 API med Knapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				174E2D6C29B0BDC30027379A /* Debug */,
+				174E2D6D29B0BDC30027379A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		174E2D6E29B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med Knapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				174E2D6F29B0BDC30027379A /* Debug */,
+				174E2D7029B0BDC30027379A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		174E2D7129B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med KnappTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				174E2D7229B0BDC30027379A /* Debug */,
+				174E2D7329B0BDC30027379A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		174E2D7429B0BDC30027379A /* Build configuration list for PBXNativeTarget "03.02 API med KnappUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				174E2D7529B0BDC30027379A /* Debug */,
+				174E2D7629B0BDC30027379A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 174E2D4229B0BDC20027379A /* Project object */;
+}
